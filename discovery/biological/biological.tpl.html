@@ -1,0 +1,220 @@
+<!--ng-controller="biologicalModal.ctrl"-->
+<article id="myModal" class="modal">
+    <div id="new_Edit">
+        <div id="biolo">
+            <form name="biologicalEditForm" novalidate>
+                <div class="modal-content lg">
+                    <div class="close" ng-click="$hide()" aria-label="Close"><i class="dd dd-close-thin"></i></div>
+                    <div class="modal-header lg dev_back biolo_tit">
+                        <span>{{"organism_info" | chFilter}}</span>
+                    </div>
+                    <div class="overlay modal-body no-pd scrollbar-macosx" data-jquery-scrollbar>
+                        <div class="wrap">
+                            <div class="table bio_info align-middle">
+                                <div class="t-row">
+                                    <div class="head-tip t-cell text-right">
+                                        <div class=""><label>{{"bid" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input class="tpinput" name="nbid" type="text" ng-model="currentBiologocal.bid">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table bio_info bd align-middle">
+                                <div class="t-row">
+                                    <div class="head-tip t-cell">
+                                        <div class=""><label>{{"label" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="radios t-cell text-right">
+                                        <label class="fl" for="biolabel{{$index}}" ng-repeat="(lkey,lvalue) in label">
+                                            <input type="checkbox" class="fl" id="biolabel{{$index}}" name="nlabel" value="{{lkey}}" hidden ng-model="label[lkey]">
+                                            <!--<i class="fa fa-square-o" aria-hidden="true"></i>-->
+                                            <i class="dd" ng-class="{'dd-checkbox-thin': !label[lkey],'dd-checkbox-ok active': label[lkey]}"></i>
+                                            <span>{{lkey |chFilter:"bird":"checkbox"}}</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table bio_info double align-middle">
+                                <div class="t-row">
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"updated_at" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="text" name="nupdated_at" ng-model="currentBiologocal.updated_at" disabled>
+                                    </div>
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"latitude" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="text" name="nlatitude" ng-model="currentBiologocal.latitude" disabled>
+                                    </div>
+                                </div>
+                                <div class="t-row">
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"location" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="text" name="nlocation" ng-model="currentBiologocal.location">
+                                    </div>
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"longitude" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="text" name="nlongitude" ng-model="currentBiologocal.longitude" disabled>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cut_title">{{"basic_info" | chFilter: 'bird'}}</div>
+
+                            <div class="table bio_info double bd align-middle">
+                                <div class="t-row">
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"species" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="text"  name="nspecies" ng-model="currentBiologocal.species">
+                                    </div>
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"gender" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="text" name="ngender" ng-model="currentBiologocal.gender">
+                                    </div>
+                                </div>
+                                <div class="t-row">
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"age" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="text"  name="nage" ng-model="currentBiologocal.age">
+                                    </div>
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"weight" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="number"  name="nweight" ng-model="currentBiologocal.weight">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cut_title">{{"organism_measurement" | chFilter: 'bird'}}</div>
+
+                            <div class="table bio_info double align-middle">
+                                <div class="t-row">
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"beek_length" | chFilter: 'bird'}}(cm)</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="number" name="nbeek_length" ng-model="currentBiologocal.beek_length">
+                                    </div>
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"tarsus_long" | chFilter: 'bird'}}(cm)</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="number" name="ntarsus_long" ng-model="currentBiologocal.tarsus_long">
+                                    </div>
+                                </div>
+                                <div class="t-row">
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"head_length" | chFilter: 'bird'}}(cm)</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="number" name="nhead_length" ng-model="currentBiologocal.head_length">
+                                    </div>
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"tarsus_short" | chFilter: 'bird'}}(cm)</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="number" name="ntarsus_short" ng-model="currentBiologocal.tarsus_short">
+                                    </div>
+                                </div>
+                                <div class="t-row">
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"wing_length" | chFilter: 'bird'}}(cm)</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="number" name="nwing_length" ng-model="currentBiologocal.wing_length">
+                                    </div>
+                                    <div class="t-cell text-right">
+                                        <div class=""><label>{{"primary_feather_length" | chFilter: 'bird'}}(cm)</label></div>
+                                    </div>
+                                    <div class="t-cell">
+                                        <input type="number" name="nprimary_feather_length" ng-model="currentBiologocal.primary_feather_length">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="cut_title">{{"organism_sample" | chFilter: 'bird'}}</div>
+
+                            <div class="table bio_info bd align-middle">
+                                <div class="t-row">
+                                    <div class="head-tip t-cell text-right">
+                                        <div class=""><label>{{"swab" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="t-cell radios">
+                                        <label for="bioswab{{$index}}" ng-repeat="(skey,svalue) in swab" >
+                                            <input type="checkbox" id="bioswab{{$index}}" class="fl" name="nswab" hidden value="{{skey}}" ng-model="swab[skey]">
+                                            <i class="dd" ng-class="{'dd-checkbox-thin': !swab[skey],'dd-checkbox-ok active': swab[skey]}"></i>
+                                            <span>{{skey |chFilter:"bird":"checkbox"}}</span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table bio_info align-middle">
+                                <div class="t-row">
+                                    <div class="head-tip t-cell text-right">
+                                        <div class=""><label>{{"feather" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="radios t-cell" >
+                                        <label for="biofeather{{$index}}" ng-repeat="(fkey,fvalue) in feather">
+                                            <input type="checkbox" id="biofeather{{$index}}" hidden class="fl" name="nfeather" value="{{fkey}}" ng-model="feather[fkey]">
+                                            <!--<i class="fa fa-square-o" aria-hidden="true"></i>-->
+                                            <i class="dd" ng-class="{'dd-checkbox-thin': !feather[fkey],'dd-checkbox-ok active': feather[fkey]}"></i>
+                                            <span>{{fkey |chFilter:"bird":"checkbox"}}</span></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table bio_info bd align-middle">
+                                <div class="t-row">
+                                    <div class="head-tip t-cell text-right">
+                                        <div class=""><label>{{"blood" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="radios t-cell">
+                                        <label for="bioblood">
+                                            <input type="checkbox" id="bioblood" name="nblood" hidden ng-model="currentBiologocal.blood">
+                                            <!--<i class="fa fa-square-o" aria-hidden="true"></i>-->
+                                            <i class="dd" ng-class="{'dd-checkbox-thin': !currentBiologocal.blood,'dd-checkbox-ok active': currentBiologocal.blood}"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table bio_info align-middle">
+                                <div class="t-row">
+                                    <div class="head-tip t-cell text-right">
+                                        <div class=""><label>{{"note" | chFilter: 'bird'}}</label></div>
+                                    </div>
+                                    <div class="radios t-cell">
+                                    <textarea name="nnote" ng-model="currentBiologocal.note">
+
+                                </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a role="button" class="btn btn-line" ng-click="$hide()">{{"cancel" | chFilter}}</a>
+                        <a role="button" class="btn active" ng-click="save()" ng-disabled="!accountAuth.biological_auth.edit">{{"confirm" | chFilter}}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,241 @@
+<!-- 自定义模式 -->
+<div class="selectmodal">
+    <form role="form" name="modesetForm" novalidate>
+        <div role="table" class="mode-body">
+            <!--环境采样-->
+            <div role="table-row">
+                <div role="table-cell">
+                    <label for="modesetenv" class=" tit_font">{{"env_acquisition" | chFilter: 'mode'}}</label>
+                </div>
+                <div role="table-cell">
+                    <input type="checkbox" name="envmode" id="modesetenv" ng-model="modeset.env.mode"  ng-disabled="seDis[0]" class="form-control checkbox has-note" hidden>
+                    <label for="modesetenv" class="mycheck"></label>
+                </div>
+                <div role="table-cell"></div>
+                <div role="table-cell"></div>
+            </div>
+            <div role="table-row">
+                <div role="table-cell">
+                    <label class="tit_font ">{{"time_interval" | chFilter: 'mode'}}<span class="danger"></span></label>
+                </div>
+                <div role="table-cell">
+                    <div class="select-mode">
+                        <button type="button" class="form-control btn select" name="env.freq" ng-model="modeset.env.freq" data-placement="auto" ng-disabled="(!modeset.env.mode) || (seDis[0])" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="efreq.value | unitFilter:'freq' for efreq in select.env.freq" bs-select>
+                        {{icon}}Action <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+                <div role="table-cell">
+                    <label class="tit_font fl">{{"threshold_voltage" | chFilter: 'mode'}}<span class="danger"></span></label>
+                </div>
+                <div role="table-cell">
+                    <div class="select-mode">
+                        <button type="button" class="form-control btn select" name="env.threshold" ng-model="modeset.env.threshold" data-placement="auto" ng-disabled="(!modeset.env.mode) || (seDis[0])" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="ethreshold.value  | unitFilter:'voltage' for ethreshold in select.env.threshold" bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--行为采样-->
+            <div role="table-row">
+                <div role="table-cell">
+                    <label for="modesetenv" class=" tit_font">{{"behavior_acquisition" | chFilter: 'mode'}}</label>
+                </div>
+                <div role="table-cell">
+                    <input type="checkbox" name="envmode" id="modesetbehavior" ng-model="modeset.behavior.mode"  ng-disabled="seDis[1]" class="form-control checkbox has-note" hidden>
+                    <label for="modesetbehavior" class="mycheck"></label>
+                </div>
+                <div role="table-cell"></div>
+                <div role="table-cell"></div>
+            </div>
+            <div role="table-row">
+                <div role="table-cell">
+                    <label class="tit_font ">{{"time_interval" | chFilter: 'mode'}}<span class="danger"></span></label>
+                </div>
+                <div role="table-cell">
+                    <div class="select-mode">
+                        <button type="button" class="form-control btn select" name="behavior.freq" ng-model="modeset.behavior.freq" data-placement="auto" ng-disabled="(!modeset.behavior.mode) || (seDis[1])" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="bfreq.value  | unitFilter:'freq' for bfreq in select.behavior.freq"
+                                bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+                <div role="table-cell">
+                    <label class="tit_font fl">{{"threshold_voltage" | chFilter: 'mode'}}<span class="danger"></span></label>
+                </div>
+                <div role="table-cell">
+                    <div class="select-mode">
+                        <button type="button" class="form-control btn select" name="behavior.threshold" ng-model="modeset.behavior.threshold" data-placement="auto" ng-disabled="(!modeset.behavior.mode) || (seDis[1])" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="bthreshold.value  | unitFilter:'voltage' for bthreshold in select.behavior.threshold"
+                                bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--环境采样-->
+            <div role="table-row">
+                <div role="table-cell">
+                    <label for="modesetgprs" class="tit_font">{{"gprs_acquisition" | chFilter: 'mode'}}</label>
+                </div>
+                <div role="table-cell">
+                    <input type="checkbox" name="gprsmode" id="modesetgprs" ng-model="modeset.gprs.mode" ng-disabled="seDis[2]" class="form-control checkbox has-note" hidden>
+                    <label for="modesetgprs" class="mycheck" ></label>
+                </div>
+                <div role="table-cell"></div>
+                <div role="table-cell"></div>
+            </div>
+            <div role="table-row">
+                <div role="table-cell">
+                    <label class="tit_font ">{{"time_interval" | chFilter: 'mode'}}<span class="danger"></span></label>
+                </div>
+                <div role="table-cell">
+                    <div class="select-mode">
+                        <button type="button" class="form-control btn select" name="gprs.freq" ng-model="modeset.gprs.freq" data-placement="auto" ng-disabled="(!modeset.gprs.mode) || (seDis[2] && (tabs.activeTab != 'custom'))" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="gfreq.value  | unitFilter:'freq' for gfreq in select.gprs.freq" bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+                <div role="table-cell">
+                    <label class="tit_font fl">{{"threshold_voltage" | chFilter: 'mode'}}<span class="danger"></span></label>
+                </div>
+                <div role="table-cell">
+                    <div class="select-mode">
+                        <button type="button" class="form-control btn select" name="gprs.threshold" ng-model="modeset.gprs.threshold" data-placement="auto" ng-disabled="(!modeset.gprs.mode) || (seDis[2] && (tabs.activeTab != 'custom'))" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="gthreshold.value  | unitFilter:'voltage' for gthreshold in select.gprs.threshold" bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--环境采样-->
+        <!--<div class="floor envir back">-->
+            <!--<div class="form-group envir_top">-->
+                    <!--<div class="fl envir_title">-->
+                        <!--<label for="modesetenv" class=" tit_font">{{"env_acquisition" | chFilter: 'mode'}}</label>-->
+                    <!--</div>-->
+                    <!--<div class="fl chose">-->
+                        <!--<input type="checkbox" name="envmode" id="modesetenv" ng-model="modeset.env.mode"  ng-disabled="seDis[0]" class="form-control checkbox" hidden>-->
+                        <!--<label for="modesetenv" class="mycheck"></label>-->
+                    <!--</div>-->
+                    <!--<div class="clear"></div>-->
+                <!---->
+            <!--</div>-->
+            <!--&lt;!&ndash;select&ndash;&gt;-->
+            <!--<div class="father">-->
+            <!--<div class="form-group envir_bot fl">-->
+                <!---->
+                <!--<div class="fl envir_title">-->
+                    <!--<label class="tit_font ">{{"time_interval" | chFilter: 'mode'}}<span class="danger"></span></label>-->
+                <!--</div>-->
+                <!--<div class="fr chose">-->
+                         <!--<button type="button" class="form-control btn select" name="env.freq" ng-model="modeset.env.freq" ng-disabled="(!modeset.env.mode) || (seDis[0])" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="efreq.value | unitFilter:'freq' for efreq in select.env.freq" bs-select>-->
+                    <!--{{icon}}Action <span class="caret"></span>-->
+                    <!--</button>-->
+                <!--</div>-->
+                <!--<div class="clear"></div>-->
+                   <!---->
+            <!--</div>-->
+
+            <!--<div class="form-group envir_bot fr ml30">-->
+                <!--<div class="fl envir_title">-->
+                    <!--<label class="tit_font fl">{{"threshold_voltage" | chFilter: 'mode'}}<span class="danger"></span></label>-->
+                <!--</div>-->
+                <!--<div class="fr chose">-->
+                    <!--<button type="button" class="form-control btn select" name="env.threshold" ng-model="modeset.env.threshold" ng-disabled="(!modeset.env.mode) || (seDis[0])" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="ethreshold.value  | unitFilter:'voltage' for ethreshold in select.env.threshold" bs-select>-->
+                    <!--Action <span class="caret"></span>-->
+                    <!--</button>-->
+                <!--</div>-->
+                <!--<div class="clear"></div>-->
+            <!--</div>-->
+            <!--<div class="clear"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--行为采样-->
+        <!--<div class="floor envir">-->
+            <!--<div class="form-group envir_top">-->
+                <!--<div class="fl envir_title">-->
+                    <!--<label for="modesetbehavior" class="tit_font">{{"behavior_acquisition" | chFilter: 'mode'}}</label>-->
+                <!--</div>-->
+                <!--<div class="fl chose">-->
+                    <!--<input type="checkbox" name="behaviormode" id="modesetbehavior" ng-model="modeset.behavior.mode" class="form-control checkbox" ng-disabled="seDis[1]" hidden>-->
+                    <!--<label for="modesetbehavior" class="mycheck"></label>-->
+                <!--</div>-->
+                <!--<div class="clear"></div>-->
+                <!---->
+            <!--</div>-->
+            <!--&lt;!&ndash;select&ndash;&gt;-->
+            <!--<div class="father">-->
+                <!--<div class="form-group envir_bot fl ">-->
+                    <!--<div class="fl envir_title">-->
+                        <!--<label class="tit_font ">{{"time_interval" | chFilter: 'mode'}}<span class="danger"></span></label>-->
+                    <!--</div>-->
+                    <!--<div class="fr chose">-->
+                        <!--<button type="button" class="form-control btn select" name="behavior.freq" ng-model="modeset.behavior.freq" data-placement="bottom-left" ng-disabled="(!modeset.behavior.mode) || (seDis[1])" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="bfreq.value  | unitFilter:'freq' for bfreq in select.behavior.freq"-->
+                        <!--bs-select>-->
+                        <!--Action <span class="caret"></span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="clear"></div>-->
+                <!--</div>-->
+                <!--<div class="form-group envir_bot fr ml30">-->
+                    <!--<div class="fl envir_title">-->
+                        <!--<label class="tit_font fl">{{"threshold_voltage" | chFilter: 'mode'}}<span class="danger"></span></label>-->
+                    <!--</div>-->
+                    <!--<div class="fr chose">-->
+                       <!--<button type="button" class="form-control btn select" name="behavior.threshold" ng-model="modeset.behavior.threshold" data-placement="bottom-left" ng-disabled="(!modeset.behavior.mode) || (seDis[1])" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="bthreshold.value  | unitFilter:'voltage' for bthreshold in select.behavior.threshold"-->
+                        <!--bs-select>-->
+                        <!--Action <span class="caret"></span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="clear"></div>-->
+                <!--</div>-->
+                <!--<div class="clear"></div>-->
+            <!--</div>-->
+            <!---->
+        <!--</div>-->
+        <!--&lt;!&ndash;通信模式&ndash;&gt;-->
+        <!--<div class="floor envir back">-->
+            <!--<div class="form-group ">-->
+                     <!--<div class="fl envir_title">-->
+                        <!--<label for="modesetgprs" class="tit_font">{{"gprs_acquisition" | chFilter: 'mode'}}</label>-->
+                    <!--</div>-->
+                    <!--<div class="fl chose">-->
+                        <!--<input type="checkbox" name="gprsmode" id="modesetgprs" ng-model="modeset.gprs.mode" ng-disabled="seDis[2]" class="form-control checkbox" hidden>-->
+                        <!--<label for="modesetgprs" class="mycheck" ></label>-->
+                    <!--</div>-->
+                    <!--<div class="clear"></div>-->
+                <!---->
+            <!--</div>-->
+            <!--&lt;!&ndash;select&ndash;&gt;-->
+            <!--<div class="father">-->
+                <!--<div class="form-group envir_bot fl">-->
+                    <!--<div class="fl envir_title">-->
+                        <!--<label class="tit_font">{{"time_interval" | chFilter: 'mode'}}<span class="danger"></span></label>-->
+                    <!--</div>-->
+                    <!--<div class="fr chose">-->
+                         <!--<button type="button" class="form-control btn select" name="gprs.freq" ng-model="modeset.gprs.freq" data-placement="bottom-left" ng-disabled="(!modeset.gprs.mode) || (seDis[2] && (tabs.activeTab != 'custom'))" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="gfreq.value  | unitFilter:'freq' for gfreq in select.gprs.freq" bs-select>-->
+                         <!--Action <span class="caret"></span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="clear"></div>-->
+                <!--</div>-->
+
+                <!--<div class="form-group envir_bot fr ml30">-->
+                    <!--<div class="fl envir_title">-->
+                        <!--<label class="tit_font">{{"threshold_voltage" | chFilter: 'mode'}}<span class="danger"></span></label>-->
+                    <!--</div>-->
+                    <!--<div class="fr chose">-->
+                       <!--<button type="button" class="form-control btn select" name="gprs.threshold" ng-model="modeset.gprs.threshold" data-placement="bottom-left" ng-disabled="(!modeset.gprs.mode) || (seDis[2] && (tabs.activeTab != 'custom'))" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="gthreshold.value  | unitFilter:'voltage' for gthreshold in select.gprs.threshold" bs-select>-->
+                        <!--Action <span class="caret"></span>-->
+                        <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="clear"></div>-->
+                <!--</div>-->
+                <!--<div class="clear"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+    </form>
+</div>
+
+
+

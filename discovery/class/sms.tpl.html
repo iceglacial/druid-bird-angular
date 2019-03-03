@@ -1,0 +1,5 @@
+<div class="wrap-full" ng-controller="smsGrid.ctrl"  id="flexBoxBody">
+    <!--<div class="search-top" ng-if="(state == 'search.gps')"><p ng-bind-html="searchTips"></p></div>-->
+    <div id="myGrid" ui-grid="gridSMS" ui-grid-selection ui-grid-pagination ui-grid-pinning ui-grid-auto-resize class="grid" ng-style="{'height': gridHeight + 'px'}"></div>
+    <div ng-include="paginationPage"></div>
+</div>

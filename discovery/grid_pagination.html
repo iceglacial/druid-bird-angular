@@ -1,0 +1,137 @@
+<div class="mypagination">
+    <form role="form" name="pageForm">
+
+        <div class="myTable no-bd" ng-init="gridApi.pagination.seek(1)">
+            <div class="t-header t-row">
+                <!--上一页【button】-->
+                <div class="t-cell btn-page">
+                    <button ng-click="gridApi.pagination.previousPage()"  ng-disabled="gridApi.pagination.getPage()<=1" class="btn pag_pre">{{"previous" | chFilter}}</button>
+                </div>
+                <!--第一页-->
+                <div class="t-cell" ng-if="gridApi.pagination.getPage() > 1">
+                    <button class="btn" ng-click="gridApi.pagination.seek(1)">1</button>
+                </div>
+                <!--<div class="t-cell more" ng-if="currentPage > 3">-->
+                    <!--<span>...</span>-->
+                <!--</div>-->
+                <!--上上一页-->
+                <!--<div class="t-cell" ng-if="currentPage > 3">-->
+                    <!--<button ng-click="goPage(currentPage-2)" class="btn">{{currentPage-2}}</button>-->
+                <!--</div>-->
+                <!--上一页-->
+                <div class="t-cell" ng-if="gridApi.pagination.getPage()>2">
+                    <button ng-click="gridApi.pagination.previousPage()" class="btn">{{gridApi.pagination.getPage()-1}}</button>
+                </div>
+                <!--当前页-->
+                <div class="t-cell">
+                    <button class="active btn">{{gridApi.pagination.getPage()}}</button>
+                </div>
+                <!--下一页-->
+                <div class="t-cell" ng-if="(gridApi.pagination.getTotalPages() > 1) && ((gridApi.pagination.getPage()+1) < gridApi.pagination.getTotalPages())">
+                    <button ng-click="gridApi.pagination.nextPage()" ng-disabled="(gridApi.pagination.getPage()+1) > gridApi.pagination.getTotalPages()" class="btn" >{{gridApi.pagination.getPage()+1}}</button>
+                </div>
+                <!--下下一页-->
+                <div class="t-cell" ng-if="(gridApi.pagination.getTotalPages() > 1) && ((gridApi.pagination.getPage()+2) < gridApi.pagination.getTotalPages())">
+                    <button ng-click="gridApi.pagination.seek(gridApi.pagination.getPage()+2)" ng-disabled="(gridApi.pagination.getPage()+2) > gridApi.pagination.getTotalPages()" class="btn" >{{gridApi.pagination.getPage()+2}}</button>
+                </div>
+                <!--第四页-->
+                <div class="t-cell" ng-if="(gridApi.pagination.getPage() < 3) && ((gridApi.pagination.getPage()+3) < gridApi.pagination.getTotalPages())">
+                    <button ng-click="gridApi.pagination.seek(gridApi.pagination.getPage()+3)" ng-disabled="(gridApi.pagination.getPage()+1) > gridApi.pagination.getTotalPages()" class="btn" >{{gridApi.pagination.getPage()+3}}</button>
+                </div>
+                <!--第五页-->
+                <div class="t-cell" ng-if="(gridApi.pagination.getPage() < 2) && ((gridApi.pagination.getPage()+4) < gridApi.pagination.getTotalPages())">
+                    <button ng-click="gridApi.pagination.seek(gridApi.pagination.getPage()+4)" ng-disabled="(gridApi.pagination.getPage()+2) > gridApi.pagination.getTotalPages()" class="btn" >{{gridApi.pagination.getPage()+4}}</button>
+                </div>
+                <div class="t-cell more" ng-if="(gridApi.pagination.getPage()+2) < gridApi.pagination.getTotalPages()">
+                    <span>...</span>
+                </div>
+                <!--最后一页-->
+                <div class="t-cell" ng-if="gridApi.pagination.getPage()<gridApi.pagination.getTotalPages() && gridApi.pagination.getTotalPages() > 1">
+                    <button class="btn" ng-click="gridApi.pagination.seek(gridApi.pagination.getTotalPages())">{{gridApi.pagination.getTotalPages()}}</button>
+                </div>
+                <!--下一页【button】-->
+                <div class="t-cell btn-page">
+                    <button ng-click="gridApi.pagination.nextPage()" class="btn pag_pre" ng-disabled="(gridApi.pagination.getPage()+1) > gridApi.pagination.getTotalPages()" >{{"next" | chFilter}}</button>
+                </div>
+                <!--指定页【button组合】-->
+                <div class="t-cell  btn-group">
+                    <div class="input-group">
+                        <input type="number" class="form-control" ng-model="targetPage" name="targetPage" min="1" max="{{gridApi.pagination.getTotalPages()}}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-disabled="pageForm.targetPage.$invalid || targetPage < 1 || targetPage===gridApi.pagination.getPage()" ng-click="gridApi.pagination.seek(pageForm.targetPage.$modelValue)">Go</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="t-cell empty">
+                    <p></p>
+                </div>
+                <div class="t-cell">
+                    <label class="total-right pull-right" >{{dataLength || 0}}{{"data_length" | chFilter}}</label>
+                </div>
+                <!--每页显示条数-->
+                <div class="t-cell btn-page">
+                    <label class="total pull-right">
+                        <button type="button" class="btn btn-default pageshow" ng-change="setPagesize(pageLimit)" name="selectPagesize" placeholder="{{'choose_please' | chFilter}}" ng-model="pageLimit" data-placement="top-right" data-html="1" bs-options="o for o in paginationPageSizes" bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="myTable no-bd">-->
+            <!--<div class="t-header t-row">-->
+                <!--&lt;!&ndash;上一页【button】&ndash;&gt;-->
+                <!--<div class="t-cell btn-page">-->
+                    <!--<button ng-click="gridApi.pagination.previousPage()"  ng-disabled="gridApi.pagination.getPage()<=1" class="btn pag_pre">上一页</button>-->
+                <!--</div>-->
+                <!--<div class="t-cell more" ng-if="gridApi.pagination.getPage() > 2">-->
+                    <!--<span>...</span>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;上一页&ndash;&gt;-->
+                <!--<div class="t-cell" ng-if="gridApi.pagination.getPage()>1">-->
+                    <!--<button ng-click="gridApi.pagination.previousPage()" class="btn">{{gridApi.pagination.getPage()-1}}</button>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;当前页&ndash;&gt;-->
+                <!--<div class="t-cell">-->
+                    <!--<button class="active btn">{{gridApi.pagination.getPage()}}</button>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;下一页&ndash;&gt;-->
+                <!--<div class="t-cell" ng-if="(totalPage > 1) && ((gridApi.pagination.getPage()+1) <= totalPage)">-->
+                    <!--<button ng-click="nextPage()" ng-disabled="(gridApi.pagination.getPage()+1) > totalPage" class="btn" >{{gridApi.pagination.getPage()+1}}</button>-->
+                <!--</div>-->
+                <!--<div class="t-cell more" ng-if="(gridApi.pagination.getPage()+1) < totalPage">-->
+                    <!--<span>...</span>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;下一页【button】&ndash;&gt;-->
+                <!--<div class="t-cell btn-page">-->
+                    <!--<button ng-click="nextPage()" class="btn pag_pre" ng-disabled="(gridApi.pagination.getPage()+1) > totalPage" >下一页</button>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;指定页【button组合】&ndash;&gt;-->
+                <!--<div class="t-cell  btn-group">-->
+                    <!--<div class="input-group">-->
+                        <!--<input type="number" class="form-control" ng-model="targetPage" name="targetPage">-->
+                        <!--<span class="input-group-btn">-->
+                            <!--<button class="btn btn-default" type="button" ng-click="goPage(pageForm.targetPage.$modelValue)">Go</button>-->
+                        <!--</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="t-cell empty">-->
+                    <!--<p></p>-->
+                <!--</div>-->
+                <!--<div class="t-cell">-->
+                    <!--<label class="total-right pull-right" >共{{totalPage}}页/{{dataLength}}条数据</label>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;每页显示条数&ndash;&gt;-->
+                <!--<div class="t-cell btn-page">-->
+                    <!--<label class="total pull-right">-->
+                        <!--<button type="button" class="btn btn-default pageshow" ng-change="setPagesize(paginationPageSize)" name="selectPagesize" ng-click="paginationPageSize!=pageLimit && test()" placeholder="请选择" ng-model="paginationPageSize" data-placement="top-right" data-html="1" data-toggle="true" bs-options="o for o in paginationPageSizes" bs-select>-->
+                            <!--Action <span class="caret"></span>-->
+                        <!--</button>-->
+                    <!--</label>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+    </form>
+</div>

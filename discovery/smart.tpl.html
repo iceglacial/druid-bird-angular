@@ -1,0 +1,65 @@
+<div class="modal overlay" id="smartModal">
+    <form role="form" name="searchForm" novalidate>
+    <div class="modal-content">
+        <div class="close" ng-click="$hide()" aria-label="Close"><i class="dd dd-close-thin"></i></div>
+        <div class="modal-header">
+            {{'advanced_search' | chFilter}}
+        </div>
+        <div class="modal-body">
+
+            <div class="tabmenu" ng-model="tabs.activeTab" bs-radio-group>
+                <label class="btn btn-default" for="n{{tab.title}}" ng-repeat="tab in tabs">
+                    {{ tab.title | chFilter: "nav" }}<input class="btn btn-default" value="{{ tab.title }}" ng-click="setCurMode(tab.title)" hidden id="n{{tab.title}}" type="radio">
+                </label>
+            </div>
+            <div class="schoose" ng-repeat="choose in searchList" >
+                <div class="schoose-key">
+                    <div class="label">{{'select_item_to_filter' | chFilter}}</div>
+                    <div>
+                        <button type="button" class="form-control btn select" ng-model="choose.name" data-placement="auto"  ng-disabled="" ng-change="choose.value=null" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="search | chFilter: tabs.activeTab for search in select" bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="schoose-value">
+                    <div class="label" ng-hide="choose.name == 'dimension'">{{"choose_range" | chFilter}}</div>
+                    <div class="label" ng-show="choose.name == 'dimension'">{{"choose_dimension" | chFilter}}</div>
+                    <!--时间范围-->
+                    <div class="form-inline" ng-if="choose.name == 'timestamp' || choose.name == 'updated_at'">
+                        <label for="{{choose.name}}1" ng-if="!choose.value[1]"><input type="text" id="{{choose.name}}1" lang="en" class="form-control" ng-model="choose.value[0]" data-max-date="today" placeholder="" data-autoclose="1" bs-datepicker></label>
+                        <label for="{{choose.name}}1" ng-if="choose.value[1]"><input type="text" id="{{choose.name}}1" lang="en" class="form-control" ng-model="choose.value[0]" data-max-date="{{choose.value[1]}}" placeholder="" data-autoclose="1" bs-datepicker></label>
+                        {{"to" | chFilter}}
+                        <label for="{{choose.name}}2" ng-if="choose.value[0]"><input type="text" id="{{choose.name}}2" class="form-control" ng-model="choose.value[1]" data-min-date="{{choose.value[0]}}" data-max-date="today" placeholder="" data-autoclose="1" data-placement="bottom-right" bs-datepicker></label>
+                    </div>
+                    <!--带单位范围-->
+                    <div class="form-inline" ng-if="choose.name != 'timestamp' && choose.name != 'updated_at' && choose.name != 'dimension' && choose.name != 'mark' && choose.name != 'uuid'">
+                        <label class="label" for="{{choose.name}}1"><input type="number" step="0.0000001" placeholder="" ng-model="choose.value[0]" ng-pattern="/(-?\d+)(\.\d+)?/" class="form-control" name="{{choose.name}}1" ><span class="unit">{{choose.name | unitFilter}}</span></label>
+                        {{"to" | chFilter}}
+                        <label class="label" for="{{choose.name}}2" ng-if="choose.value[0]"><input type="number" step="0.0000001" placeholder="" ng-model="choose.value[1]" ng-pattern="/(-?\d+)(\.\d+)?/" min="{{choose.value[0]}}" class="form-control" name="{{choose.name}}2" ng-required="{{choose.name === 'longitude' || choose.name === 'latitude'}}"><span class="unit">{{choose.name | unitFilter}}</span></label>
+                    </div>
+                    <!--mark-->
+                    <div class="form-inline" ng-if="choose.name == 'mark'">
+                        <label class="label" for="{{choose.name}}1"><input type="number" step="0" placeholder="{{'enter' | chFilter}}{{'mark' | chFilter}}" ng-model="choose.value[0]" ng-pattern="/(-?\d+)(\.\d+)?/" class="form-control" name="{{choose.name}}1" ></label>
+                    </div>
+                    <!--uuid-->
+                    <div class="form-inline" ng-if="choose.name == 'uuid'">
+                        <label class="label" for="{{choose.name}}1"><input type="text" step="0" placeholder="{{'enter' | chFilter}}{{'uuid' | chFilter}}" ng-model="choose.value[0]" class="form-control" name="{{choose.name}}1" ></label>
+                    </div>
+                    <div class="form-inline" ng-if="choose.name == 'dimension'">
+                        <button type="button" class="form-control btn select" ng-model="choose.value[0]" data-placement="bottom"  ng-disabled="" placeholder="{{'choose_please' | chFilter}}" data-html="1" data-toggle="true" bs-options="search | unitFilter:choose.name for search in selectdimension" required bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </div>
+                </div>
+                <div ng-click="removeClick($index)" class="remove-search">{{"delete" | chFilter}}</div>
+            </div>
+            <div class="add-search"><button ng-click="addSearch()" class="btn btn-default">+ {{"add_item_to_filter" | chFilter}}</button></div>
+
+        </div>
+        <div class="modal-footer">
+            <!--<button class="btn" ng-click="$hide()">{{"cancle" | chFilter}}</button>-->
+            <button class="btn btn-block" ng-click="searchForm.$valid && save()?$hide():null">{{"confirm" | chFilter}}</button>
+        </div>
+    </div>
+    </form>
+</div>

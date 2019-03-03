@@ -1,0 +1,51 @@
+<!--<article ng-controller="deviceList.ctrl" ng-init="showActBtn = false" id="deviceList">-->
+    <!--<div class="wrapper">-->
+        <!--&lt;!&ndash;</section>&ndash;&gt;-->
+        <!--<div class="search-top" ng-if="(state == 'search.device')"><p ng-bind-html="searchTips"></p></div>-->
+        <!--<div class="group  my-group">-->
+            <!--<button class="btn btn-primary" ng-click="showAct()" ng-modal="showActBtn" title="">{{actText | chFilter}}</button>-->
+            <!--<div ng-if="showActBtn" class="g-inline actform">-->
+                <!--<form action="" name="actForm"></form>-->
+                <!--<button class="btn btn-default" ng-click="downloadAs('kml')">{{"kml_export" | chFilter}}</button>-->
+                <!--<button class="btn btn-default" ng-click="downloadAs('excel')">{{"excel_export" | chFilter}}</button>-->
+                <!--<input type="checkbox" id="actChooseAll" name="actChooseAll" hidden ng-model="actChooseAll" ng-init="actChooseAll = false"/>-->
+                <!--<label class="btn btn-default btn-chooseAll" for="actChooseAll" ng-click="actSelect(actChooseAll)"><i class="fa fa-square-o" aria-hidden="true"></i> {{selectAllBtn | chFilter}}</label>-->
+            <!--</div>-->
+            <!--<button ng-click="getMap()" class="btn btn-loc"><i class="dd dd-site"></i>{{"see_all_devices_on_map" | chFilter}}</button>-->
+        <!--</div>-->
+        <!--<div ui-grid="gridDeviceList" ui-grid-edit ui-grid-row-edit ui-grid-selection ui-grid-pagination ui-grid-pinning ui-grid-auto-resize class="grid"></div>-->
+        <!--<div ng-include="paginationPage"></div>-->
+    <!--</div>-->
+<!--</article>-->
+
+<article ng-controller="deviceList.ctrl" ng-init="showActBtn = false" id="deviceList">
+    <div class="wrapper">
+        <div class="flex-box full">
+            <div class="flex-box-header no-pd-top">
+                <div class="search-top" ng-if="(state == 'search.device')"><p ng-bind-html="searchTips"></p></div>
+                <!--设备分配-->
+                <div class="group  my-group">
+                    <button class="btn btn-primary" ng-click="showAct()" ng-if="accountAuth.export_auth" ng-modal="showActBtn" title="">{{actText | chFilter}}</button>
+                    <div ng-if="showActBtn" class="g-inline actform">
+                        <form action="" name="actForm"></form>
+                        <button class="btn btn-default" ng-click="chooseDownloadType()">{{"export" | chFilter}}</button>
+                        <!--<button class="btn btn-default" ng-click="downloadAs('kml')">{{"kml_export" | chFilter}}</button>-->
+                        <!--<button class="btn btn-default" ng-click="downloadAs('excel')">{{"excel_export" | chFilter}}</button>-->
+                        <!--<button class="btn btn-default" ng-click="downloadAs('csv')">{{"csv_export" | chFilter}}</button>-->
+                        <!--<button class="btn btn-default" ng-click="downloadAsMultiple('csv')">{{"csv_export_multiple" | chFilter}}</button>-->
+                        <input type="checkbox" id="actChooseAll" name="actChooseAll" hidden ng-model="actChooseAll" ng-init="actChooseAll = false"/>
+                        <label class="btn btn-default btn-chooseAll" for="actChooseAll" ng-click="actSelect(actChooseAll)"><i class="fa fa-square-o" aria-hidden="true"></i> {{'select_all' | chFilter}}</label>
+                    </div>
+                    <div class="pull-right">
+                        <a role="button" ng-click="getMap()" class="btn btn-loc"><i class="dd dd-site-o"></i>{{"see_all_devices_on_map" | chFilter}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-box-body" id="flexBoxBody">
+                <div ui-grid="gridDeviceList" ui-grid-edit ui-grid-row-edit ui-grid-selection ui-grid-pagination ui-grid-pinning ui-grid-auto-resize class="grid" ng-style="{'height': gridHeight + 'px'}"></div>
+                <div ng-include="paginationPage"></div>
+            </div>
+        </div>
+        <!--</section>-->
+    </div>
+</article>

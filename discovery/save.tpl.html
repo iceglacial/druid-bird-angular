@@ -1,0 +1,18 @@
+<div class="modal" id="sureModal">
+    <div class="modal-content">
+        <div class="close" ng-click="$hide()" aria-label="Close"><i class="dd dd-close-thin"></i></div>
+        <div class="modal-header" ng-if="sureTitle">
+            <div ng-bind="sureTitle"></div>
+        </div>
+        <div class="modal-body">
+            <div class="text-center pic" ng-if="surePic">
+                <img ng-src="{{surePic}}">
+            </div>
+            <div class="text-center word-keep" ng-bind-html="sureText"></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" ng-click="cancel();$hide()">{{"nosave" | chFilter}}</button>
+            <button class="btn" ng-click="save();$hide()">{{"save" | chFilter}}</button>
+        </div>
+    </div>
+</div>

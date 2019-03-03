@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="zh-CN" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="zh-CN" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="zh-CN" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="zh-CN" ng-app="myApp" class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="德鲁伊科技 - 连接生命与自然，鸟类追踪器">
+    <meta name="copyright" content="Druid Technology">
+    <meta name="author" content="Wang Cheng ting, iceglacial@sina.com">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <title>鸟类追踪 - 德鲁伊科技</title>
+    <!--<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" name="viewport" />-->
+    <link rel="shortcut icon" href="/images/druid.ico" />
+    <link rel="apple-touch-icon" href="/images/druid.png">
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/bower_components/angular-motion/dist/angular-motion.min.css" />
+    <link rel="stylesheet" href="/bower_components/angular-ui-select/dist/select.min.css"/>
+    <link rel="stylesheet" href="/bower_components/jquery.scrollbar/jquery.scrollbar.css">
+    <!--<link rel="stylesheet" href="lib/fonts/druidicon.css">-->
+    <!--<link rel="stylesheet" href="/css/druidicon.css">-->
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <!--<link rel="stylesheet" type="text/css" href="lib/leaflet-1.0.1/leaflet.css" /> &lt;!&ndash; leaflet地图 &ndash;&gt;-->
+
+    <!--<link  src="bower_components/leaflet/dist/leaflet.css" />-->
+    <!--<link  src="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />-->
+    <!--<link  src="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />-->
+
+    <link rel="stylesheet" href="/bower_components/angular-ui-grid/ui-grid.min.css" />
+
+    <link rel="stylesheet" href="/css/app.css" />
+    <!--<link href="bower_components/angular-svg-round-progressbar/build/demo.css" rel="stylesheet" type="text/css">-->
+</head>
+
+<body ng-controller="index.ctrl">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+<ui-view></ui-view>
+<!--插件-->
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/bower_components/angular/angular.min.js"></script>
+<script src="/bower_components/angular-strap/dist/angular-strap.min.js"></script>
+<script src="/bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+<script src="/bower_components/angular-touch/angular-touch.min.js"></script>
+<script src="/bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="/bower_components/angular-ui-grid/ui-grid.min.js"></script>
+<script src="/bower_components/ng-storage/ngStorage.min.js"></script>
+<script src="/bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="/bower_components/angular-svg-round-progressbar/build/roundProgress.min.js"></script>
+<!--<script src="../bower_components/highcharts-ng/dist/highcharts.js"></script>-->
+<script src="/bower_components/highcharts-ng/dist/highstock.js"></script>
+<script src="/bower_components/highcharts-ng/dist/broken-axis.js"></script>
+<script src="/bower_components/highcharts-ng/modules/exporting.js"></script>
+<script src="/bower_components/highcharts-ng/dist/highcharts-ng.min.js"></script>
+<!--<script src="../bower_components/highcharts-ng/dist/lazyload.min.js"></script>-->
+<script src="/bower_components/angular-ui-select/dist/select.min.js"></script>
+<!--数据加密-->
+<script src="/bower_components/crypto-js/build/components/core-min.js"></script>
+<script src="/bower_components/crypto-js/build/components/sha256-min.js"></script>
+<!--谷歌地图：AIzaSyBgH7o1ov6uxnOTk8m0oUrwEb2KJxwUP4I-->
+<!--<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM&libraries=drawing"></script>-->
+<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM&libraries=drawing,geometry&language=zh" id="google-maps-script"></script><!--geometry-->
+<!--百度地图-->
+<!--<script  src="http://api.map.baidu.com/api?v=2.0&ak=sDIZHk9UA3hA07nawRD8k9ooRuqcIUc8"></script>-->
+<!--集群-->
+<script src="/lib/js/markerclusterer.js"></script>
+<script src="/lib/js/ContextMenu.js"></script>
+<script src="/bower_components/angular-sanitize/angular-sanitize.min.js "></script>
+<!--websocket-->
+<script src="/lib/js/angular-websocket.min.js"></script>
+<!--文件下载-->
+<script src="/bower_components/file-saver/FileSaver.js"></script>
+<script src="/bower_components/blob-polyfill/Blob.js"></script>
+<script src="/bower_components/angular-file-saver/dist/angular-file-saver.min.js"></script>
+<!--<script src="../bower_components/angular-file-saver/dist/angular-file-saver.bundle.js"></script>-->
+<script src="/bower_components/angular/angular-locale_zh-cn.js"></script>
+<!--<script src="../bower_components/angular/angular-locale_en-us.js"></script>-->
+
+<script src="/bower_components/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+
+<!--<script src="http://lgalfaso.github.io/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>-->
+<!--<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>-->
+
+<script src="/lib/js/transform.js"></script>
+
+<!--app-js-->
+<script src="/lib/app.js "></script>
+<script src="/lib/factory/factory.js"></script>
+<script src="/lib/filter/myfilter.js"></script>
+<script src="/lib/controller/index.ctrl.js "></script>
+<script src="/lib/router/myrouter.js "></script>
+
+</body>
+
+
+</html>

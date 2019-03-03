@@ -1,0 +1,58 @@
+<article ng-controller="userInfo.ctrl">
+    <div class="wrapper">
+        <!--个人资料-->
+        <div class="flex-row full">
+                <div class="flex-row-list pd-right">
+                    <section id="myInfo" ng-if="accountLogin.username">
+                        <div class="infoPanel auto">
+                            <!--scrollbar-macosx" data-jquery-scrollbar-->
+                            <div class="info-panel-header">
+                                <h5>{{'person_info' | chFilter}}</h5>
+                            </div>
+                            <div class="info-panel-content">
+                                <form role="form" name="myInfoForm">
+                                    <div class="user-head">
+                                        <!--<img class="head-pic bigger" ng-src="{{userHead}}" />-->
+                                        <i class="dd dd-portrait drop-lead anti"></i>
+                                    </div>
+                                    <div class="user-detail">
+                                        <h5 class="title">{{accountLogin.username}}</h5>
+                                        <ul>
+                                            <li title="{{accountLogin.email}}"><i class="dd dd-email"></i>{{accountLogin.email}}</li>
+                                            <li title="{{accountLogin.phone}}"><i class="dd dd-phone"></i>{{accountLogin.phone}}</li>
+                                            <li title="{{accountLogin.address}}"><i class="dd dd-site-o"></i>{{accountLogin.address}}</li>
+                                            <li title="{{accountLogin.role | chFilter:'role'}}"><i class="dd dd-eye"></i>{{accountLogin.role | chFilter:'role'}}</li>
+                                            <li title="{{accountLogin.company_name}}"><i class="dd dd-company"></i>{{accountLogin.company_name}}</li>
+                                        </ul>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="info-panel-footer">
+                                <div class="overhidden">
+                                    <button class="btn-line active pull-left" ng-click="modifyInfo(user)">{{"edit_info" | chFilter}}</button>
+                                    <button class="btn-line pull-right" ng-click="modifyMyPassword()" ng-disabled="!accountAuth.user_auth.edit">{{"change_password" | chFilter}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<p class="word-keep">{{accountAuth}}</p>-->
+                    </section>
+                </div>
+            <div class="flex-row-body full-h" ng-include="'/user/message.html'"></div>
+                <!--<div class="flex-row-body companyuser" ng-if="accountLogin.role">-->
+                    <!--<div class="flex-box full infoPanel">-->
+                        <!--<div class="flex-box-header info-panel">-->
+                            <!--<div class="pull-left">-->
+                                <!--<h5>{{accountInfoTip | chFilter}}</h5>-->
+                            <!--</div>-->
+                            <!--<div class="pull-right">-->
+                                <!--<button ng-if="accountLogin.role == 'admin'" class="btn-line active" ng-click="addUser()">+&nbsp;{{createAccountTip | chFilter}}</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="flex-box-body" id="flexBoxBody">-->
+                            <!--<div class="wrap-full" ng-include="'/user/company-user.tpl.html'"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+</article>

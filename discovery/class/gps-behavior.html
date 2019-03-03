@@ -1,0 +1,142 @@
+<article ng-controller="gps_behavior.ctrl" id="gpsBehavior">
+    <div class="wrapper">
+        <div class="flex-box full">
+            <div class="flex-box-header no-pd-top">
+                <section class="detail-info-panel">
+                    <ul class="quick-view">
+                        <li class="col-sm-6 col-lg-3">
+                            <div class="device_mark text-center">
+                                <div class="mymark bigger blue t-inline-one">{{currentData.mark}}</div>
+                                <div class="mymark">{{"mark" | chFilter}}</div>
+                                <div class="mymark board t-inline-one">UUID:{{currentData.uuid}}</div>
+                            </div>
+                        </li>
+                        <li class="col-sm-6 col-lg-3" ng-if="accountAuth.env_auth">
+                            <div class="quick-setting flex-row">
+                                <div class="info pull-left">
+                                    <div class=" quick-header">{{"device_voltage" | chFilter}}</div>
+                                    <div class="fs quick-body vol">
+                                        <div class="light">{{"timestamp" | chFilter: 'bird'}}</div>
+                                        <div>{{currentData.timestamp | unitFilter: 'timestamp' : 'gps'}}</div>
+                                    </div>
+                                    <div class="quick-footer"><a class="btn link-warn t-inline-one" ng-click="showDeviceSetting()" ng-class="{'disabled': currentData.owner && currentData.owner === 'FromDruidOld'}"> {{"device_parameter" | chFilter}} <span class="st">></span></a></div>
+                                </div>
+                                <div class="myprogress pull-left">
+                                    <div class="progress ng-cloak" ng-style="getStyle()">
+                                        <div ng-style="getStyleColor">{{currentData.battery_voltage | unitFilter: 'voltage'}}</div>
+                                        <!--<div class="fs">{{ curstate}}</div>-->
+                                    </div>
+                                    <round-progress max="max" current="current" color="{{ getColor() }}" bgcolor="{{ bgColor }}" radius="{{ radius }}" semi="isSemi" rounded="rounded" stroke="{{ stroke }}" clockwise="clockwise" responsive="responsive" duration="{{ duration }}" animation="{{ currentAnimation }}"
+                                                    offset="{{ offset }}" animation-delay="{{ animationDelay }}" on-render="showPreciseCurrent">
+                                    </round-progress>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="col-sm-6 col-lg-3" ng-if="accountAuth.biological_auth.view">
+                            <div class="d-panel-content-head head_biolo  quick-header">{{"organism_info" | chFilter}}</div>
+                            <div class="fs fs_biolo quick-body">
+                                <div class="t-inline-one">{{"species" | chFilter: "bird"}}:&nbsp;{{deviceBiological.species || "-"}}</div>
+                                <div class="t-inline-one">{{"gender" | chFilter: "bird"}}:&nbsp;{{deviceBiological.gender || "-"}}</div>
+                                <div class="t-inline-one">{{"age" | chFilter: "bird"}}:&nbsp;{{deviceBiological.age || "-"}}</div>
+                                <div class="t-inline-one">{{"weight" | chFilter: "bird"}}:&nbsp;{{deviceBiological.weight || "-"}}</div>
+                            </div>
+                            <div class="quick-footer"></div>
+                        </li>
+                        <li class="col-sm-6 col-lg-3" ng-if="accountAuth.biological_auth.view">
+                            <div class=" quick-header"></div>
+                            <div class="fs fs_biolo quick-body">
+                                <div class="t-inline-one">{{"timestamp" | chFilter: "bird"}}:&nbsp;{{deviceBiological.timestamp | unitFilter: 'timestamp'  || "-"}}</div>
+                                <div class="t-inline-one">{{"location" | chFilter: "bird"}}:&nbsp;{{deviceBiological.location || "-"}}</div>
+                                <div class="t-inline-one">{{"label" | chFilter: "bird"}}:&nbsp;<span ng-repeat="label in deviceBiological.label | arrayStringFilter"><span ng-if="$index > 0">,&nbsp;</span> {{label | chFilter: 'bird' || "-"}}</span></div>
+                                <div class="t-inline-one">{{"note" | chFilter: "bird"}}:&nbsp;{{deviceBiological.note || "-"}}</div>
+                            </div>
+                            <div class="quick-footer">
+                                <a class="btn link-warn t-inline-one" ng-class="{'disabled': !currentData.biological_view && accountLogin.role !== 'admin'}" ng-click="showDeviceBiological()"> {{"organism_info" | chFilter}} <span class="st">></span></a>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            <div class="flex-box-other device detail">
+                <div class="tab-btn">
+                    <div class="btn-group" ng-model="tabs.activeTab" bs-radio-group>
+                        <label class="btn" ng-repeat="tab in tabs">
+                            <input type="radio" class="btn btn-default" value="{{ tab.title }}">{{tab.title | chFilter: 'nav'}}
+                        </label>
+                    </div>
+                    <button ng-click="getMap()" ng-if="accountAuth.env_auth" class="btn btn-loc"><i class="dd dd-site-o"></i> {{"see_a_device_on_map" | chFilter}}</button>
+                </div>
+            </div>
+            <div class="flex-box-body" id="flexBoxBody">
+                <div ng-include="gridPage" class="wrap-full"></div>
+            </div>
+        </div>
+        <!--<section class="detail-info-panel">-->
+            <!--<ul class="quick-view">-->
+                <!--<li class="col-sm-6 col-lg-3">-->
+                    <!--<div class="device_mark text-center">-->
+                        <!--<div class="mymark bigger blue t-inline-one">{{currentData.mark}}</div>-->
+                        <!--<div class="mymark">{{"mark" | chFilter}}</div>-->
+                        <!--<div class="mymark board t-inline-one">UUID:{{currentData.uuid}}</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="col-sm-6 col-lg-3">-->
+                    <!--<div class="quick-setting flex-row">-->
+                        <!--<div class="info pull-left">-->
+                            <!--<div class=" quick-header">{{"device_voltage" | chFilter}}</div>-->
+                            <!--<div class="fs quick-body vol">-->
+                                <!--<div class="light">{{"timestamp" | chFilter: 'bird'}}</div>-->
+                                <!--<div>{{currentData.timestamp | unitFilter: 'timestamp' : 'gps'}}</div>-->
+                            <!--</div>-->
+                            <!--<div class="quick-footer"><a class="btn link-warn t-inline-one" ng-click="getDevice()"> {{"device_parameter" | chFilter}} <span class="st">></span></a></div>-->
+                        <!--</div>-->
+                        <!--<div class="myprogress pull-left">-->
+                            <!--<div class="progress ng-cloak" ng-style="getStyle()">-->
+                                <!--<div ng-style="getStyleColor">{{currentData.battery_voltage | unitFilter: 'voltage'}}</div>-->
+                                <!--&lt;!&ndash;<div class="fs">{{ curstate}}</div>&ndash;&gt;-->
+                            <!--</div>-->
+                            <!--<round-progress max="max" current="current" color="{{ getColor() }}" bgcolor="{{ bgColor }}" radius="{{ radius }}" semi="isSemi" rounded="rounded" stroke="{{ stroke }}" clockwise="clockwise" responsive="responsive" duration="{{ duration }}" animation="{{ currentAnimation }}"-->
+                                            <!--offset="{{ offset }}" animation-delay="{{ animationDelay }}" on-render="showPreciseCurrent">-->
+                            <!--</round-progress>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</li>-->
+                <!--<li class="col-sm-6 col-lg-3">-->
+                    <!--<div class="d-panel-content-head head_biolo  quick-header">{{"organism_info" | chFilter}}</div>-->
+                    <!--<div class="fs fs_biolo quick-body">-->
+                        <!--<div class="t-inline-one">{{"species" | chFilter: "bird"}}:&nbsp;{{deviceBiological.species || "-"}}</div>-->
+                        <!--<div class="t-inline-one">{{"gender" | chFilter: "bird"}}:&nbsp;{{deviceBiological.gender || "-"}}</div>-->
+                        <!--<div class="t-inline-one">{{"age" | chFilter: "bird"}}:&nbsp;{{deviceBiological.age || "-"}}</div>-->
+                        <!--<div class="t-inline-one">{{"weight" | chFilter: "bird"}}:&nbsp;{{deviceBiological.weight || "-"}}</div>-->
+                    <!--</div>-->
+                    <!--<div class="quick-footer"></div>-->
+                <!--</li>-->
+                <!--<li class="col-sm-6 col-lg-3">-->
+                    <!--<div class=" quick-header"></div>-->
+                    <!--<div class="fs fs_biolo quick-body">-->
+                        <!--<div class="t-inline-one">{{"timestamp" | chFilter: "bird"}}:&nbsp;{{deviceBiological.timestamp | unitFilter: 'timestamp'  || "-"}}</div>-->
+                        <!--<div class="t-inline-one">{{"location" | chFilter: "bird"}}:&nbsp;{{deviceBiological.location || "-"}}</div>-->
+                        <!--<div class="t-inline-one">{{"label" | chFilter: "bird"}}:&nbsp;<span ng-repeat="label in deviceBiological.label | arrayStringFilter"><span ng-if="$index > 0">,&nbsp;</span> {{label | chFilter: 'bird' || "-"}}</span></div>-->
+                        <!--<div class="t-inline-one">{{"note" | chFilter: "bird"}}:&nbsp;{{deviceBiological.note || "-"}}</div>-->
+                    <!--</div>-->
+                    <!--<div class="quick-footer">-->
+                        <!--<a class="btn link-warn t-inline-one" ng-class="{'disabled': !currentData.biological_view}" ng-click="getBiological()"> {{"organism_info" | chFilter}} <span class="st">></span></a>-->
+                    <!--</div>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</section>-->
+        <!--<section class="device detail">-->
+            <!--<div class="tab-btn">-->
+                <!--<div class="btn-group" ng-model="tabs.activeTab" bs-radio-group>-->
+                    <!--<label class="btn" ng-repeat="tab in tabs">-->
+                        <!--<input type="radio" class="btn btn-default" value="{{ tab.title }}">{{tab.title | chFilter: 'nav'}}-->
+                    <!--</label>-->
+                <!--</div>-->
+                <!--<button ng-click="getMap()" class="btn btn-loc"><i class="dd dd-site-o"></i> {{"see_a_device_on_map" | chFilter}}</button>-->
+            <!--</div>-->
+            <!--<div class="grid-wrapper">-->
+                <!--<div ng-include="gridPage"></div>-->
+            <!--</div>-->
+        <!--</section>-->
+    </div>
+</article>

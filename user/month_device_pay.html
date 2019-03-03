@@ -1,0 +1,41 @@
+<article ng-controller="monthDevicePay.ctrl">
+    <div class="wrapper">
+        <div class="infoPanel flex-box full pay-list">
+            <div class="flex-box-header bill-header info-panel-header">
+                <div class="flex-row center-h">
+                    <div class="flex-row-list">
+                        <h2 class="title">{{companyMonthPay | currency: "¥": 2}}</h2>
+                        <div class="small opacity50">{{"monthly_bill" | chFilter}}：{{deviceDetailBill[0].Begin | date: 'MMM'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-box-body info-panel-content scrollbar-macosx" data-jquery-scrollbar>
+                <div class="table text-center border">
+                    <div class="t-header">
+                        <div class="t-row">
+                            <div class="t-cell ">{{'number' | chFilter}}</div>
+                            <div class="t-cell ">{{'mark' | chFilter}}</div>
+                            <div class="t-cell ">{{'uuid' | chFilter}}</div>
+                            <div class="t-cell ">{{'expense_date' | chFilter}}</div>
+                            <div class="t-cell ">{{'expense_sum' | chFilter}}</div>
+                        </div>
+                    </div>
+                    <div class="t-row-group">
+                        <div class="t-row" ng-repeat="bill in deviceDetailBill">
+                            <div class="t-cell ">{{$index + 1}}</div>
+                            <div class="t-cell "><a ui-sref="device_gps({'id': bill.DeviceID})">{{bill.Mark || bill.SN || "-"}}</a></div>
+                            <div class="t-cell ">{{bill.UUID}}</div>
+                            <div class="t-cell ">{{bill.Begin | date: 'MM.dd':'+0000'}} - {{bill.End | date: 'MM.d':'+0000'}}</div>
+                            <div class="t-cell safe">{{bill.Money || 0 | currency: "¥": 2}}</div>
+                        </div>
+                        <!--<p class="word-keep">companyPayList:{{companyPayList}}</p>-->
+                        <!--<p class="word-keep">companyMonthBill:{{companyMonthBill}}</p>-->
+                    </div>
+                </div>
+            </div>
+            <!--<div class="flex-box-footer info-panel-footer">-->
+                <!--footer-->
+            <!--</div>-->
+        </div>
+    </div>
+</article>

@@ -1,0 +1,45 @@
+<!--ng-controller="deviceSetModal.ctrl"-->
+<article id="myModal" class="modal overlay">
+    <div id="new_Edit">
+        <div class="modal-content lg">
+            <div class="close" ng-click="$hide()" aria-label="Close"><i class="dd dd-close-thin"></i></div>
+            <div class="modal-header dev_back">
+                <div class="body-top flex-row">
+                    <div class="device-head word-keep table center">
+                        <div class="table-cell">{{curDevice.mark}}</div>
+                    </div>
+                    <div class="title">
+                        <div class="uuid">{{curDevice.uuid}}</div>
+                        <!--<div class="date light">{{'timestamp' | chFilter: 'device_set'}}: {{ curDevice.last_gps ? curDevice.last_gps.timestamp :curDevice.timestamp | date: 'yyyy-MM-dd HH:mm:ss':'UTC'}}</div>-->
+                        <div class="date small">
+                            <span ng-if="curDevice.setting.updated_at">{{'updated_at' | chFilter: 'device_set'}}: {{curDevice.setting.updated_at | unitFilter:'updated_at'}}</span>
+                            <span ng-if="curDevice.downloaded_at">{{'downloaded_at' | chFilter: 'device_set'}}: {{curDevice.downloaded_at | unitFilter:'downloaded_at'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body mytab no-pd" >
+                <div class="wrap">
+                    <div class="light tiptxt">{{"choose_mode_set" | chFilter}}</div>
+                    <div role="table" class="mode">
+                        <div role="table-row" ng-model="tabs.activeTab" bs-radio-group>
+                            <div role="table-cell" for="n{{tab.title}}" ng-repeat="tab in tabs">
+                                <div class="btn-body">
+                                    <label class="btn btn-default">
+                                        {{ tab.title | chFilter: 'mode' }}
+                                        <input class="sr-only" name="{{ tab.title }}" value="{{ tab.title }}" ng-click="setCurMode(tab.title)" hidden id="n{{tab.title}}" type="radio">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-include="formPage" id="modesetForm"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a role="button" ng-click="$hide()" class="btn btn-linel">{{"cancel" | chFilter}}</a>
+                <a role="button" ng-click="save()" class="btn active" ng-class="{'disabled': !accountAuth.setting_auth.edit}">{{"confirm" | chFilter}}</a>
+            </div>
+        </div>
+    </div>
+</article>

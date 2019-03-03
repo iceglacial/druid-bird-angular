@@ -1,0 +1,53 @@
+<div class="wrapper no-pd">
+    <div ng-controller="fenceDeviceAdd.ctrl" class="wrap-full">
+        <!-- Page Content -->
+        <div class="mapshow wrap-full" id="map-wrap">
+            <div class="wrap-full flex-row">
+                <div id="map" class="wrap-full"></div>
+                <aside id="mapFence" class="">
+                    <form name="mapFenceForm" class="abs-wrap">
+                        <div class="wrap flex-box">
+                            <div class="input-group fence-header">
+                                <div class="pull-left">
+                                    <span class="lead-line">{{'add_devices' | chFilter:'fence'}}</span>
+                                </div>
+                                <div class="pull-right">
+                                    <input type="checkbox" id="chooseAll" ng-click="chooseAll()" ng-model="chooseAllDevice" hidden/>
+                                    <label for="chooseAll" class="small light" >
+                                        <i class="dd" ng-class="{'dd-checkbox-thin': !chooseAllDevice,'dd-checkbox-ok active': chooseAllDevice}"></i>
+                                        {{'select_all' | chFilter}}</label>
+                                </div>
+                            </div>
+                            <div class="fence-filter">
+                                <input type="text" class="rounded" ng-model="deivceFilter.mark" placeholder="{{'quick_search' | chFilter:'fence'}}"/>
+                            </div>
+                            <div class="fence-body white scrollbar-macosx" data-jquery-scrollbar>
+                                <ul>
+                                    <li ng-repeat="device in allDevices | filter: deivceFilter | orderBy: 'mark'" ng-class="{'selected': device.choose}">
+                                        <div class="choose-item">
+                                            <input type="checkbox" id="{{$index}}" ng-change="addDevice(device)" ng-model="device.choose" hidden/>
+                                            <label for="{{$index}}" class="small light" >
+                                                <i class="dd" ng-class="{'dd-checkbox-thin': !device.choose,'dd-checkbox-ok active': device.choose}"></i>
+                                            </label>
+                                        </div>
+                                        <div class="data-area auto">
+                                            <div class="title">{{'mark' | chFilter}}:&nbsp;{{device.mark}}</div>
+                                            <div class="light">UUID:&nbsp;{{device.uuid}}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="fence-footer">
+                                <a role="button" href="javascript:;history.go(-1)" class="btn">{{'confirm' | chFilter}}</a>
+                            </div>
+                        </div>
+                    </form>
+                </aside>
+            </div>
+
+        </div>
+        <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM&callback=initMap"></script>-->
+        <!--<script type="text/javascript" src="http://maps.google.cn/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM"></script>-->
+    </div>
+</div>
+

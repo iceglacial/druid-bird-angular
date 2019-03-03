@@ -1,0 +1,77 @@
+<div class="modal" id="myModal">
+    <form name="myInfoForm" novalidate>
+        <div class="modal-content">
+            <div class="close" ng-click="$hide()" aria-label="Close"><i class="dd dd-close-thin"></i></div>
+            <div class="modal-header">
+                <h5>{{"edit_info" | chFilter}}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form">
+                    <ul>
+                        <li>
+                            <h6>{{"account_name" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="text" name="nName" id="curUsername"
+                                   placeholder="{{'username' | chFilter: 'placeholder'}}"
+                                   ng-model="accountMe.username"
+                                   ng-pattern="pattern.username"
+                                   ng-minlength="{{userLimit.username[0]}}"
+                                   ng-maxlength="{{userLimit.username[1]}}"
+                                   ng-blur="change('regName',myInfoForm.nName.$error);"
+                                   disabled
+                            />
+                            <label for="curUsername"></label>
+                        </li>
+                        <li>
+                            <h6>{{"email" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="email" name="nEmail" id="curEmail"
+                                   placeholder="abc@abc.com"
+                                   ng-model="accountMe.email"
+                                   ng-pattern="pattern.email"
+                                   ng-focus="myInfoForm.nName.$invalid && checkValid()"
+                                   ng-blur="change('regEmail',myInfoForm.nEmail.$error);"
+                                   required
+                            />
+                            <label for="curEmail"></label>
+                        </li>
+                        <li>
+                            <h6>{{"phone" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="tel" name="nPhone" id="curPhone"
+                                   placeholder="{{'phone' | chFilter: 'placeholder'}}"
+                                   ng-model="accountMe.phone"
+                                   ng-minlength="{{userLimit.phone[0]}}"
+                                   ng-maxlength="{{userLimit.username[1]}}"
+                                   ng-pattern="pattern.phone"
+                                   ng-focus="myInfoForm.nEmail.$invalid && checkValid()"
+                                   ng-blur="change('regPhone',myInfoForm.nPhone.$error)"
+                                   required
+                            />
+                            <label for="curPhone"></label>
+                        </li>
+                        <li>
+                            <h6>{{"address" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="text" name="nAddress" id="curAddress"
+                                   placeholder="{{'address' | chFilter: 'placeholder'}}"
+                                   ng-model="accountMe.address"
+                                   ng-maxlength="{{userLimit.address}}"
+                                   ng-focus="myInfoForm.nPhone.$invalid && checkValid()"
+                                   ng-blur="change('regAddress',myInfoForm.nAddress.$error);"/>
+                            <label for="curAddress"></label>
+                        </li>
+                        <li>
+                            <h6>{{"role" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="text" id="curRole" name="curRole" ng-model="accountMe.role" disabled ><label for="curRole"></label>
+                        </li>
+                        <li>
+                            <h6>{{"company" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="text" id="curCompany" name="curCompany" ng-model="accountMe.company_name" disabled ><label for="curCompany"></label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button class="btn-del" ng-click="delete()">删除此帐号</button>-->
+                <button class="btn btn-block active" ng-click="save($event)&&$hide()">{{"confirm" | chFilter}}</button>
+            </div>
+        </div>
+    </form>
+</div>

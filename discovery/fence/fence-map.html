@@ -1,0 +1,43 @@
+<div class="wrapper no-pd">
+    <div ng-controller="fenceMap.ctrl" class="wrap-full">
+        <!-- Page Content -->
+        <div class="mapshow wrap-full" id="map-wrap">
+            <div class="wrap-full flex-row">
+                <div id="map" class="wrap-full"></div>
+                <aside id="mapFence" class="">
+                    <form name="mapFenceForm" class="abs-wrap">
+                        <div class="wrap flex-box">
+                            <div class="input-group fence-header">
+                                <div class="pull-left">
+                                    <span class="lead-line">{{"fence_list" | chFilter:'fence'}}（{{fences.length || 0}}）</span>
+                                </div>
+                            </div>
+                            <div class="fence-body scrollbar-macosx" data-jquery-scrollbar>
+                                <ul>
+                                    <li class="flex-column chain" ng-repeat="fence in fences" ng-class="{'active': activeFence == fence.id}" ng-click="highLightFence(fence.id)">
+                                        <div class="fence-sample">
+                                            <div class="word-keep">{{fence.area_name}}</div>
+                                            <div class="chain-line flex-row">
+                                                <div><span class="grey">{{"device_count" | chFilter:'fence'}}：</span>{{fence.device_id.length || 0}}</div>
+                                                <div><span class="grey">{{"notification_type" | chFilter:'fence'}}：</span>{{fence.msg_type | chFilter: "fence"}}</div>
+                                            </div>
+                                            <a role="button" class="abs-btn" ng-click="editFence(fence.id)">
+                                                <i class="dd dd-editor"></i>
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="fence-footer">
+                                <a role="button" class="btn" ui-sref="fence.add">{{"create_fence" | chFilter:'fence'}}</a>
+                            </div>
+                        </div>
+                    </form>
+                </aside>
+            </div>
+        </div>
+        <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM&callback=initMap"></script>-->
+        <!--<script type="text/javascript" src="http://maps.google.cn/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM"></script>-->
+    </div>
+</div>
+

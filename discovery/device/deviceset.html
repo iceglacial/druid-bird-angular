@@ -1,0 +1,10 @@
+<article ng-controller="deviseSet.ctrl">
+    <div class="wrapper">
+        <div class="flex-box full">
+            <div class="flex-box-body" id="flexBoxBody">
+                <div ui-grid="gridDeviceSet" ui-grid-edit ui-grid-selection ui-grid-pinning ui-grid-pagination ui-grid-auto-resize class="grid" ng-style="{'height': gridHeight + 'px'}"></div>
+                <div ng-include="paginationPage"></div>
+            </div>
+        </div>
+    </div>
+</article>

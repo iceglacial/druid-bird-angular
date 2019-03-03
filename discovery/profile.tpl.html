@@ -1,0 +1,25 @@
+<div class="popover">
+    <div class="popover-content">
+        <form name="profileForm" novalidate>
+            <div class="form-group is-select">
+                <label class="input-label">{{'language' | chFilter}}</label>
+                <button type="button" class="form-control btn select" ng-class="{'danger': profileForm.language.$invalid}" ng-change="setLanguage(setProfile.language)" name="language" required ng-model="setProfile.language" data-placement="bottom" data-html="1" data-toggle="true" placeholder="{{'choose_please' | chFilter}}" bs-options="lang | chFilter:'language' for lang in languageEnabled" bs-select>
+                    Action <span class="caret"></span>
+                </button>
+            </div>
+            <div class="form-group is-select">
+                <label class="input-label">{{'pieces_one_page' | chFilter}}</label>
+                <button type="button" class="form-control btn select" ng-class="{'danger': profileForm.pageSize.$invalid}" ng-change="setPagesize(setProfile.page_size)" name="pageSize" required ng-model="setProfile.page_size" data-placement="bottom" data-html="1" data-toggle="true" placeholder="{{'choose_please' | chFilter}}" bs-options="size for size in paginationPageSizes" bs-select>
+                    Action <span class="caret"></span>
+                </button>
+            </div>
+            <div class="form-group is-select">
+                <label class="input-label">{{'timezone' | chFilter}}</label>
+                <button type="button" class="form-control btn select" ng-class="{'danger': profileForm.timezone.$invalid}" ng-change="setTimeZone(setProfile.time_zone)" name="timezone" required ng-model="setProfile.time_zone" data-placement="bottom" data-html="1" data-toggle="true" placeholder="{{'choose_please' | chFilter}}" bs-options="time | chFilter:'timezone' for time in globalTimeZone" bs-select>
+                    Action <span class="caret"></span>
+                </button>
+            </div>
+            <button class="btn btn-primary btn-block" ng-click="updateProfile(profileForm.$dirty,profileForm.$valid) && $hide()">{{"save" | chFilter}}</button>
+        </form>
+    </div>
+</div>

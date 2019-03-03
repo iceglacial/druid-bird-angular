@@ -1,0 +1,98 @@
+<div class="modal" id="myModal">
+    <form name="addUserForm" novalidate>
+        <div class="modal-content">
+            <div class="close" ng-click="$hide()" aria-label="Close"><i class="dd dd-close-thin"></i></div>
+            <div class="modal-header">
+                <h5>{{"create_account" | chFilter}}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form">
+                    <ul>
+                        <li>
+                            <h6>{{"account_name" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="text" class="form-control" name="nName" id="addName"
+                                   placeholder="{{'username' | chFilter: 'placeholder'}}"
+                                   ng-model="regName.name"
+                                   ng-pattern="pattern.username"
+                                   ng-minlength="{{userLimit.username[0]}}"
+                                   ng-maxlength="{{userLimit.username[1]}}"
+                                   ng-blur="change('regName',addUserForm.nName.$error);"
+                                   required
+                            />
+                            <label for="addName"></label>
+                        </li>
+                        <li>
+                            <h6>{{"email" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="email" class="form-control" name="nEmail" id="addEmail"
+                                   placeholder="abc@abc.com"
+                                   ng-model="regEmail.name"
+                                   ng-pattern="pattern.email"
+                                   ng-focus="addUserForm.nName.$invalid && checkValid()"
+                                   ng-blur="change('regEmail',addUserForm.nEmail.$error);"
+                                   required
+                            />
+                            <label for="addEmail"></label>
+                        </li>
+                        <li>
+                            <h6>{{"phone" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="tel" class="form-control" name="nPhone" id="addPhone"
+                                   placeholder="{{'phone' | chFilter: 'placeholder'}}"
+                                   ng-model="regPhone.name"
+                                   ng-minlength="{{userLimit.phone[0]}}"
+                                   ng-maxlength="{{userLimit.phone[1]}}"
+                                   ng-pattern="pattern.phone"
+                                   ng-focus="addUserForm.nEmail.$invalid && checkValid()"
+                                   ng-blur="change('regPhone',addUserForm.nPhone.$error)"
+                                   required
+                            />
+                            <label for="addPhone"></label>
+                        </li>
+                        <li>
+                            <h6>{{"address" | chFilter}}</h6>
+                            <input type="text" class="form-control" name="nAddress" id="addAddress"
+                                   placeholder="{{'address' | chFilter: 'placeholder'}}"
+                                   ng-model="regAddress.name"
+                                   ng-maxlength="{{userLimit.address}}"
+                                   ng-focus="addUserForm.nPhone.$invalid && checkValid()"
+                                   ng-blur="change('regAddress',addUserForm.nAddress.$error);"
+                            />
+                            <label for="addAddress"></label>
+                        </li>
+                        <li>
+                            <h6>{{"password" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="password" class="form-control" name="nPassword" id="addPassword"
+                                   placeholder="{{'password' | chFilter: 'placeholder'}}"
+                                   ng-model="regPassword.name"
+                                   ng-minlength="{{userLimit.password[0]}}"
+                                   ng-maxlength="{{userLimit.password[1]}}"
+                                   ng-pattern="pattern.password"
+                                   ng-focus="addUserForm.nAddress.$invalid && checkValid()"
+                                   ng-blur="change('regPassword',addUserForm.nPassword.$error);"
+                                   required
+                            />
+                            <label for="addPassword"></label>
+                        </li>
+                        <li>
+                            <h6>{{"confirm_password" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="password" class="form-control" name="nRpassword" id="addRpassword"
+                                   placeholder="{{'re_password' | chFilter: 'placeholder'}}"
+                                   ng-model="regRepassword.name"
+                                   ng-minlength="{{userLimit.password[0]}}"
+                                   ng-maxlength="{{userLimit.password[1]}}"
+                                   ng-pattern="pattern.password"
+                                   ng-focus="addUserForm.nPassword.$invalid && checkValid()"
+                                   ng-blur="change('regRepassword',addUserForm.nRpassword.$error)"
+                                   required
+                            />
+                            <label for="addRpassword"></label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button class="btn-del" ng-click="delete()">{{'delete' | chFilter}}</button>-->
+                <button class="btn btn-block active" ng-click="save($event)?$hide():null">{{"confirm" | chFilter}}</button>
+            </div>
+        </div>
+    </form>
+</div>

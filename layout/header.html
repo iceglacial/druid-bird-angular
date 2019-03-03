@@ -1,0 +1,147 @@
+<header id="header" class="mheader" ng-controller="head.ctrl">
+    <!--公司 logo-->
+    <div class="brand g-inline g-pd-head pull-left">
+        <a href="{{druidHomePage}}">
+            <div class="flex-row center">
+                <div class="">
+                    <!--<img class="logo" ng-src="{{brandLogoPic}}"/>-->
+                    <i class="dd dd-logo-druid"></i>
+                </div>
+                <div class="g-inline m-block pd-l">
+                    <div class="m-title">德鲁伊科技</div>
+                    <div class="m-title-en">{{"druid" | chFilter: "company" : "en"}}</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <!--搜索框-->
+    <div id="search" ng-init="searchInfo = null">
+        <form role="form" name="searchForm">
+            <!--<div class="form-control" bs-dropdown aria-haspopup="true" aria-expanded="false"><div>{{searchForm.nsearch.$valid}}</div>-->
+                <!--<div class="img pull-left" ng-click="turnType()"><a title="{{'click_to_search' | chFilter: (searchType[searchTypeIndex?0:1] | chFilter)}}"><i class="fa fa-search" aria-hidden="true"></i></a> </div>-->
+                <!--<input type="number" name="nsearchmark" ng-hide="searchTypeIndex" ng-model="searchInfo.mark" ng-keyup="searchForm.nsearchmark.$valid && smartSearch()" placeholder="{{enterText | chFilter}}{{searchType[0] | chFilter}}..." required />-->
+                <!--<input type="text" name="nsearchuuid" ng-show="searchTypeIndex" ng-model="searchInfo.uuid" ng-keyup="searchForm.nsearchuuid.$valid && smartSearch()" placeholder="{{enterText | chFilter}}{{searchType[1] | chFilter}}..." required />-->
+                <!--<div class="pull-right"><button ng-click="doSearch()" class="btn btn-default">{{searchBtn | chFilter}}</button></div>-->
+                <!--&lt;!&ndash;searchInfo[searchType[searchTypeIndex?1:0]]&ndash;&gt;-->
+                <!--&lt;!&ndash;ng-disabled="searchForm.nsearch{{searchType[searchTypeIndex?1:0]}}.$invalid"&ndash;&gt;-->
+            <!--</div>-->
+            <div class="input-group search-box" bs-dropdown aria-haspopup="true" aria-expanded="false">
+                <div class="input-group-addon" ng-click="turnType()" title="{{'click_to_search' | chFilter: (searchType[searchTypeIndex?0:1] | chFilter)}}"><i class="dd dd-search"></i></div>
+                <div class="limit-input">
+                    <input type="number" name="nsearchmark" class="form-control" ng-hide="searchTypeIndex" ng-model="searchInfo.mark" ng-keyup="searchForm.nsearchmark.$valid && smartSearch()" placeholder="{{enterText | chFilter}}{{searchType[0] | chFilter}}..." required />
+                    <input type="text" name="nsearchuuid" class="form-control" ng-show="searchTypeIndex" ng-model="searchInfo.uuid" ng-keyup="searchForm.nsearchuuid.$valid && smartSearch()" placeholder="{{enterText | chFilter}}{{searchType[1] | chFilter}}..." required />
+                </div>
+                <div class="input-group-addon"><a class="btn btn-grey" ng-click="doSearch()">{{"search" | chFilter}}</a></div>
+            </div>
+            <div class="dropdown-menu search-info" role="menu" ng-show="(!searchTypeIndex && searchForm.nsearchmark.$valid || searchTypeIndex && searchForm.nsearchuuid.$valid) && searchOutDevice.length > 0">
+                <div class="dropdown-menu-cont">
+                    <ul>
+                        <li ng-repeat="sDevice in searchOutDevice" ng-if="sDevice">
+                            <a class="txt" ng-click="doSearch(sDevice.id)" ng-bind-html="sDevice[searchType[searchTypeIndex?1:0]] | highLightFilter:'search': searchTypeIndex ? searchForm.nsearchuuid.$viewValue : searchForm.nsearchmark.$viewValue"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        <div class="supersearch"><a class="" ng-click="superSearch()">{{'advanced_search' | chFilter}}</a></div>
+        </form>
+    </div>
+    <div class="pull-right pro">
+        <!--个人信息下拉菜单-->
+         <div class="user g-inline">
+            <div class="table">
+                <div class="t-cell uhead-pic">
+                    <a title="{{user_info | chFilter:'nav'}}" ui-sref="user_info">
+                        <!--<img class="head-pic" ng-src="{{userHeadPic}}"/>-->
+                        <i class="dd dd-portrait drop-lead anti"></i>
+                    </a>
+                </div>
+            </div>
+         </div>
+        <div class="user g-inline">
+            <div class="table text-center" bs-dropdown aria-haspopup="true" aria-expanded="false">
+                <div class="t-row">
+                    <!--<div role="table-cell" ui-sref="user_info"><a title="个人中心"> <img class="head-pic" ng-src="{{userHeadPic}}"/></a></div>-->
+                    <div class="text-left t-cell">
+                        <div class="name"><span ng-bind="accountLogin.username"></span></div>
+                        <div class="name company" ng-bind="accountLogin.company_name"></div>
+                        <!--<div class="role">{{user.role | chFilter: 'role'}}</div>-->
+                    </div>
+                    <div class="t-cell"><i class="fa fa-caret-down"></i></div>
+                </div>
+            </div>
+            <div class="dropdown-menu user-info scrollbar-macosx" data-jquery-scrollbar data-placement="bottom-right" role="menu">
+                <div class="dropdown-menu-cont">
+                    <header class="text-center g-bg1">
+                        <!--<img class="head-pic" ng-src="{{userHeadPic}}"/>-->
+                        <i class="dd dd-portrait drop-lead anti"></i>
+                        <!-- <div>上传头像</div> -->
+                        <div id="editHeadPic" class="edit-head-pic">
+                            <a ui-sref="user_info" title="{{'edit_per_pro' | chFilter}}">
+                                <!--<img class="edit-head-pic" ng-src="{{editPic}}"/>-->
+                                <i class="dd dd-editor"></i>
+                            </a>
+                        </div>
+                    </header>
+                    <div class="user-detail">
+                        <ul>
+                            <!--<li ng-repeat="(uKey,uValue) in user" ng-if="uKey | outFilter: 'user'">-->
+                                <!--<div class="imglead"><img ng-src="{{infoPic[uKey]}}"/></div><div class="txt">{{uValue | chFilter: 'role' || ""}}</div>-->
+                            <!--</li>-->
+                            <li title="{{accountLogin.username}}"><i class="dd dd-user"></i>{{accountLogin.username}}</li>
+                            <li title="{{accountLogin.email}}"><i class="dd dd-email"></i>{{accountLogin.email}}</li>
+                            <li title="{{accountLogin.phone}}"><i class="dd dd-phone"></i>{{accountLogin.phone}}</li>
+                            <li title="{{accountLogin.address}}"><i class="dd dd-site-o"></i>{{accountLogin.address}}</li>
+                            <li title="{{accountLogin.role | chFilter: 'role'}}"><i class="dd dd-eye"></i>{{accountLogin.role | chFilter: 'role'}}</li>
+                            <li title="{{accountLogin.company_name}}"><i class="dd dd-company"></i>{{accountLogin.company_name}}</li>
+                            </ul>
+                    </div>
+                </div>
+                <footer>
+                    <a ng-click="logout($event)" class="green btn">{{"logout" | chFilter}}</a>
+                </footer>
+            </div>
+        </div>
+        <!--信息提示下拉菜单-->
+        <div class="user g-inline">
+            <div class="text-center table" bs-dropdown aria-haspopup="true" aria-expanded="false">
+                <div class="warn t-row">
+                    <div class="t-cell">
+                        <!--<img ng-src="{{messagePic}}"/>-->
+                        <i class="dd dd-message drop-lead"></i>
+                    </div>
+                    <div class="t-cell" ng-class="{'active': unMessageLength > 0}">{{unMessageLength || 0}}</div>
+                    <div class="t-cell"><i class="fa fa-caret-down"></i></div>
+                </div>
+            </div>
+            <div class="dropdown-menu user-info mesg" data-placement="bottom-right" role="menu">
+                <div class="dropdown-menu-cont">
+                    <header>
+                        <h5>{{"latest_notification" | chFilter}} <a class="blue pull-right" ng-click="$hide()">{{"close" | chFilter}}</a></h5>
+                    </header>
+                    <div class="mesg-body">
+                        <ul>
+                            <li class="info-line" ng-repeat="mesg in unMessage" ng-if="$index < 10">
+                                <a  ng-click="check($index)">
+                                    <div class="cont">
+                                        <p class="date">{{mesg.timestamp | unitFilter:'localdate'}}</p>
+                                        <div class="see" title="{{mesg.msg}}">{{mesg.msg}}</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <footer>
+                    <a ng-click="goMessage($event);$hide()" class="grey btn">{{viewAllTip | chFilter}}</a>
+                </footer>
+            </div>
+        </div>
+        <div class="user g-inline">
+            <div class="text-center table">
+                <button type="button" class="btn-icon" title="{{popover.title}}" data-placement="bottom" data-content="{{popover.content}}" data-template-url="/discovery/profile.tpl.html" data-auto-close="1" bs-popover>
+                    <i class="dd dd-setting"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>

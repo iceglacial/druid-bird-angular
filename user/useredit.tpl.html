@@ -1,0 +1,117 @@
+<!--ng-controller="userEdit.ctrl"-->
+<div class="modal" id="myModal">
+    <form name="curInfoForm" novalidate>
+        <div class="modal-content">
+            <div class="close" ng-click="$hide()" aria-label="Close"><i class="dd dd-close-thin"></i></div>
+            <div class="modal-header">
+                <h5>{{"account_info" | chFilter}}</h5>
+            </div>
+            <div class="modal-body scrollbar-macosx" data-jquery-scrollbar>
+                <div class="form">
+                    <ul>
+                        <li>
+                            <h6>{{"account_name" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="text" id="curUsername" ng-model="user.username" disabled ><label for="curUsername"></label>
+                        </li>
+                        <li>
+                            <h6>{{"email" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="text" id="curEmail" ng-model="user.email" disabled ><label for="curEmail"></label>
+                        </li>
+                        <li>
+                            <h6>{{"phone" | chFilter}}</h6>
+                            <input type="text" id="curPhone" name="curPhone" ng-model="user.phone" disabled ><label for="curPhone"></label>
+                        </li>
+                        <li>
+                            <h6>{{"address" | chFilter}}</h6>
+                            <input type="text" id="curAddress" name="curAddress" ng-model="user.address" disabled ><label for="curAddress"></label>
+                        </li>
+                        <li>
+                            <h6>{{"role" | chFilter}}</h6>
+                            <button type="button" class="form-control btn select" ng-model="user.role" data-placement="bottom-left" disabled placeholder="请选择" data-html="1" data-toggle="true" bs-options="role | chFilter:'role' for role in allRole" bs-select />
+                        </li>
+                        <li>
+                            <h6>{{"company" | chFilter}}</h6>
+                            <input type="text" id="curCompany" name="curCompany" ng-model="user.company_name" disabled ><label for="curCompany"></label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form line">
+                    <ul>
+                        <li class="full">
+                            <h6>{{"password_auth" | chFilter}}<span class="danger">*</span><small class="light">（{{"admin_password_tip" | chFilter}}）</small></h6>
+                        </li>
+                        <li>
+                            <input type="password" id="curPassword" name="curPassword" ng-model="curPassword"><label for="curPassword"></label>
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <h6>{{"new_password" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="password" class="form-control" name="nPassword" id="newPassword"
+                                   placeholder="{{'password' | chFilter: 'placeholder'}}"
+                                   ng-model="newPassword"
+                                   ng-minlength="{{userLimit.password[0]}}"
+                                   ng-maxlength="{{userLimit.password[1]}}"
+                                   ng-pattern="pattern.password"
+                                   ng-blur="change('regPassword',curInfoForm.nPassword.$error);"
+                                   ng-disabled="curInfoForm.curPassword.$invalid"
+                            />
+                            <label for="newPassword"></label>
+                        </li>
+                        <li>
+                            <h6>{{"confirm_password" | chFilter}}<span class="danger">*</span></h6>
+                            <input type="password" class="form-control" name="nRpassword" id="RnewPassword"
+                                   placeholder="{{'re_password' | chFilter: 'placeholder'}}"
+                                   ng-model="RnewPassword"
+                                   ng-minlength="{{userLimit.password[0]}}"
+                                   ng-maxlength="{{userLimit.password[1]}}"
+                                   ng-pattern="pattern.Repassword"
+                                   ng-focus="curInfoForm.nPassword.$invalid && checkValid()"
+                                   ng-blur="change('regRepassword',curInfoForm.nRpassword.$error)"
+                                   ng-disabled="curInfoForm.newPassword.$invalid"
+                            />
+                            <label for="RnewPassword"></label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <!--<button class="btn-del" ng-click="deleteUser()">{{"delete" | chFilter}}</button>-->
+                <button class="btn btn-block active" ng-click="curInfoForm.$dirty && curInfoForm.curPassword.$valid ? save($event) && $hide() : $hide()" ng-disabled="curInfoForm.$invalid">{{"confirm" | chFilter}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!--<div id="modal_add_user" class="modal" >-->
+    <!--<div class="modal-content">-->
+        <!--<div class="close" ng-click="$hide()"></div>-->
+        <!--<form role="form" name="userEditForm">-->
+            <!--<div class="offset-top">-->
+                <!--<img class="head-pic bigger" ng-src="{{userhead}}" />-->
+            <!--</div>-->
+            <!--<div class="modal-header">修改用户信息</div>-->
+            <!--<div class="modal-body">-->
+
+                <!--<div class="form-group col-md-6" ng-repeat="(curKey,curValue) in user" ng-if="curKey | outFilter: 'user'">-->
+                    <!--<label for="add{{curKey}}">{{curKey | chFilter: 'user'}}</label>-->
+                    <!--<input type="text" class="form-control" name="n{{curKey}}" id="add{{curKey}}" ng-model="curValue" disabled />-->
+                <!--</div>-->
+
+                <!--<div class="form-group col-md-6">-->
+                    <!--<label for="mypassword">密码验证</label>-->
+                    <!--<input type="password" class="form-control" name="nmypassword" id="mypassword" />-->
+                <!--</div>-->
+
+                <!--<div class="form-group col-md-6">-->
+                    <!--<label for="initpassword">重置密码</label>-->
+                    <!--<input type="password" class="form-control" name="ninitpassword" id="initpassword" />-->
+                <!--</div>-->
+
+            <!--</div>-->
+            <!--<div class="modal-footer">-->
+                <!--<a class="btn-link" ng-click="deleteUser();">删除此帐号</a>-->
+                <!--<a class="btn btn-lg btn-default" type="submit" ng-click="save($event);$hide()">保存</a>-->
+            <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+<!--</div>-->

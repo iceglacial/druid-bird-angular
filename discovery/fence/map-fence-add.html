@@ -1,0 +1,151 @@
+<div class="wrapper no-pd">
+    <div ng-controller="fenceMapEdit.ctrl" class="wrap-full">
+        <!-- Page Content -->
+        <div class="mapshow wrap-full" id="map-wrap">
+            <div class="wrap-full flex-row">
+                <div id="map" class="wrap-full"></div>
+                <aside id="mapFence" class="">
+                    <form name="mapFenceForm" class="abs-wrap" novalidate>
+                        <div class="wrap flex-box">
+                            <div class="input-group fence-header">
+                                <div class="pull-left">
+                                    <span class="lead-line">{{"create_fence" | chFilter:'fence'}}</span>
+                                </div>
+                                <div class="pull-right">
+                                    <a class="small light" ng-if="state == 'map.fence.edit'" ng-click="deleteFence()">{{"delete_fence" | chFilter:'fence'}}</a>
+                                </div>
+                            </div>
+                            <div class="fence-body scrollbar-macosx" data-jquery-scrollbar>
+                                <ul>
+                                    <li>
+                                        <div class="tag-name">
+                                            {{"fence_name" | chFilter:'fence'}}
+                                        </div>
+                                        <div class="data-area">
+                                            <textarea ng-model="newFence.name" placeholder='{{"fence_name_maxlength_placeholder" | chFilter:"fence":60}}' name="fenceName" rows="4" ng-class="{'error': mapFenceForm.fenceName.$invalid}" ng-maxlength="60"></textarea>
+                                            <span class="danger" ng-if="mapFenceForm.fenceName.$viewValue.length > 60">{{"fence_name_maxlength_tip" | chFilter:'fence':60}}</span>
+                                        </div>
+                                    </li>
+                                    <li ng-if="newFence.area.circle">
+                                        <div class="tag-name">
+                                            {{"center" | chFilter:'fence'}}
+                                        </div>
+                                        <div class="data-area">
+                                            <div class="input-group edit-item" ng-class="{'error': mapFenceForm.fenceCenterLat.$invalid}">
+                                                <label class="input-group-addon">Lat</label>
+                                                <input type="number" ng-model="newFence.area.circle.center.lat" name="fenceCenterLat" min="-90" max="90" ng-change="refreshCircleCenter()" class="lat" ng-pattern="/^[0-9+-.]{1,}$/" step="0.0000001" />
+                                                <label class="input-group-addon warning">!</label>
+                                            </div>
+                                            <div class="input-group edit-item" ng-class="{'error': mapFenceForm.fenceCenterLng.$invalid}">
+                                                <label class="input-group-addon">Lng</label>
+                                                <input type="number" ng-model="newFence.area.circle.center.lng" name="fenceCenterLng" min="-180" max="180" ng-change="refreshCircleCenter()" class="lng" ng-pattern="/^[0-9+-.]{1,}$/" step="0.0000001" />
+                                                <label class="input-group-addon warning">!</label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li ng-if="newFence.area.circle" class="chain">
+                                        <div class="tag-name">
+                                            {{"radius" | chFilter:'fence'}}
+                                        </div>
+                                        <div class="data-area">
+                                            <div class="input-group edit-item" ng-class="{'error': mapFenceForm.fenceRadius.$invalid || (newFence.area.acreage > maxFenceArea)}">
+                                                <input type="number" ng-model="newFence.area.circle.radius" name="fenceRadius" ng-change="refreshCircleRadius()" min="1" max="10000" ng-pattern="/^[0-9+-.]{1,}$/" step="0" />
+                                                <label class="input-group-addon">m</label>
+                                                <label class="input-group-addon warning">!</label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li ng-if="newFence.area.rectangle">
+                                        <div class="tag-name">
+                                            {{"nw_corner" | chFilter:'fence'}}
+                                        </div>
+                                        <div class="data-area">
+                                            <div class="input-group edit-item" ng-class="{'error': mapFenceForm.fenceNorthWestLat.$invalid || (newFence.area.acreage > maxFenceArea)}">
+                                                <label class="input-group-addon">Lat</label>
+                                                <input type="number" ng-model="newFence.area.rectangle.northWest.lat" name="fenceNorthWestLat" min="-90" max="90" ng-change="refreshRectangle()" class="" ng-pattern="/^[0-9.]{1,}$/" step="0.0000001"/>
+                                                <label class="input-group-addon warning">!</label>
+                                            </div>
+                                            <div class="input-group edit-item" ng-class="{'error': mapFenceForm.fenceNorthWestLng.$invalid || (newFence.area.acreage > maxFenceArea)}">
+                                                <label class="input-group-addon">Lng</label>
+                                                <input type="number" ng-model="newFence.area.rectangle.northWest.lng" name="fenceNorthWestLng" min="-180" max="180" ng-change="refreshRectangle()" class="" ng-pattern="/^[0-9.]{1,}$/" step="0.0000001" />
+                                                <label class="input-group-addon warning">!</label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li ng-if="newFence.area.rectangle" class="chain">
+                                        <div class="tag-name">
+                                            {{"se_corner" | chFilter:'fence'}}
+                                        </div>
+                                        <div class="data-area">
+                                            <div class="input-group edit-item" ng-class="{'error': mapFenceForm.fenceSouthEastLat.$invalid || (newFence.area.acreage > maxFenceArea)}">
+                                                <label class="input-group-addon">Lat</label>
+                                                <input type="number" ng-model="newFence.area.rectangle.southEast.lat" name="fenceSouthEastLat" name="fenceCenterLng" ng-class="{'error': mapFenceForm.fenceCenterLng.$invalid}" min="-90" max="90" ng-change="refreshRectangle()" class="" ng-pattern="/^[0-9+-.]{1,}$/" step="0.0000001" />
+                                                <label class="input-group-addon warning">!</label>
+                                            </div>
+                                            <div class="input-group edit-item" ng-class="{'error': mapFenceForm.fenceSouthEastLng.$invalid || (newFence.area.acreage > maxFenceArea)}">
+                                                <label class="input-group-addon">Lng</label>
+                                                <input type="number" ng-model="newFence.area.rectangle.southEast.lng" name="fenceSouthEastLng" min="-190" max="180" ng-change="refreshRectangle()" class="" ng-pattern="/^[0-9+-.]{1,}$/" step="0.0000001" />
+                                                <label class="input-group-addon warning">!</label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li ng-if="newFence.area.acreage > 0">
+                                        <div class="tag-name">
+
+                                        </div>
+                                        <div class="data-area">
+                                            <span class="">{{"fence_area" | chFilter:'fence'}}&nbsp;≈&nbsp;{{newFence.area.acreage || 0}}&nbsp;m²</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="tag-name">
+                                            {{"notification_type" | chFilter:'fence'}}
+                                        </div>
+                                        <div class="data-area">
+                                            <input id="fenceMesgType" type="checkbox" ng-model="newFence.msg_type" hidden>
+                                            <p>
+                                                <label for="fenceMesgType">
+                                                    <i class="dd" ng-class="{'dd-checkbox': newFence.msg_type,'dd-checkbox-ok active': !newFence.msg_type}"></i>
+                                                    {{2 | chFilter: "fence"}}
+                                                </label>
+                                            </p>
+                                            <p>
+                                                <label for="fenceMesgType">
+                                                    <i class="dd" ng-class="{'dd-checkbox': !newFence.msg_type,'dd-checkbox-ok active': newFence.msg_type}"></i>
+                                                    {{1 | chFilter: "fence"}}
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </li>
+                                    <!--<li class="chain">-->
+                                    <!--<div class="tag-name">-->
+                                    <!--添加设备-->
+                                    <!--</div>-->
+                                    <!--</li>-->
+                                    <!--<li class="flex-column btn-wrap">-->
+                                    <!--<a role="button" class="btn btn-act align-left">设备：{{newFence.devices.length || 0}}个<i class="pull-right fa fa-angle-right"></i></a>-->
+                                    <!--&lt;!&ndash;<a role="button" class="btn btn-act">地图标记</a>&ndash;&gt;-->
+                                    <!--</li>-->
+                                </ul>
+                            </div>
+                            <div class="fence-footer">
+                                <ul class="text-center">
+                                    <li class="col-xs-6">
+                                        <a role="button" class="btn" href="javascript:;history.go(-1)">{{"cancel" | chFilter}}</a>
+                                    </li>
+                                    <li class="col-xs-6">
+                                        <a role="button" class="btn" ng-click="mapFenceForm.$valid && createFence()">{{"save" | chFilter}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </aside>
+            </div>
+
+        </div>
+        <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM&callback=initMap"></script>-->
+        <!--<script type="text/javascript" src="http://maps.google.cn/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM"></script>-->
+    </div>
+</div>
+

@@ -1,0 +1,28 @@
+<div class="modal anly key" id="myModal">
+    <form name="chooseDeviceForm">
+        <div class="modal-content">
+            <div class="close" ng-click="$hide()"><i class="dd dd-close-thin"></i></div>
+            <div class="modal-header ty2">
+                <h5>{{"add_data_type" | chFilter}} <small class="yellow" ng-if="anlyDevice.length>1">{{"choose_only_one_data_type" | chFilter}}</small></h5>
+            </div>
+            <div class="modal-body">
+                <div class="plabel choosed scrollbar-macosx" data-jquery-scrollbar>
+                    <h6 class="blue">{{anlyDeviceKey.length || 0}}/{{allDeviceKeyLength}} {{"chosen" | chFilter}}</h6>
+                    <div class="list active" ng-repeat="key in anlyDeviceKey" ng-click="delDeviceKey($index)">
+                        <a>{{key | chFilter: 'chart'}}</a>
+                    </div>
+                </div>
+                <div class="plabel unchoosed scrollbar-macosx" data-jquery-scrollbar>
+                    <h6 class="light" ng-if="searchDevice">{{"search_result" | chFilter}}</h6>
+                    <div class="list" ng-repeat="key in allDeviceKey | sameFilter: anlyDeviceKey" ng-click="addDeviceKey(key)">
+                        <a>{{key | chFilter: 'chart'}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a role="button" class="btn btn-del" ng-click="$hide()">{{"cancel" | chFilter}}</a>
+                <a role="button" class="btn btn-line active" ng-click="save();$hide()">{{"confirm" | chFilter}}</a>
+            </div>
+        </div>
+    </form>
+</div>

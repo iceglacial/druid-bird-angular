@@ -1,0 +1,66 @@
+<div class="wrapper no-pd">
+    <div ng-controller="gpsMap.ctrl" class="wrap-full" ng-init="initMap()">
+        <!-- Page Content -->
+        <div class="mapshow wrap-full" id="map-wrap">
+            <div class="mapTip" id="test">
+                <div class="tip marker-show">
+                    <label for="markerShow" class="">
+                        <input type="checkbox" id="markerShow" ng-click="toggleCluster()" name="markerShow" class="btn btn-default sr-only" ng-model="markerCluster" />
+                        {{!markerCluster ? ("show_markers" | chFilter) : ("hide_markers" | chFilter)}}
+                    </label>
+                </div>
+                <div class="tip">
+                    <span ng-bind-html="mapNote"></span>
+                    <!--<a class="select_month" ng-if="lastMonth" bs-dropdown aria-haspopup="true" aria-expanded="false">{{lastMonth | chFilter: "last_month"}}<i class="dd dd-angle-down"></i></a>-->
+                    <button type="button" class="btn btn-text" ng-if="lastMonth" ng-model="lastMonth" ng-change="setLastMonth(lastMonth)" data-html="1" data-placement="bottom-right" data-toggle="true" bs-options="month | chFilter: 'last_month' for month in monthDropdown" bs-select>
+                        Action <span class="caret"></span>
+                    </button>
+                </div>
+                <div class="close" ng-click="closeMap()"><i class="dd dd-close-thin"></i></div>
+            </div>
+            <div class="wrap-full">
+                <!--ng-class="{'open': searchOutDevice || searchRangeDevices}"-->
+                <aside id="mapSearch" class="" ng-class="{'open': mapSearchForm.mapSearchInput.$viewValue}">
+                    <form name="mapSearchForm" class="abs-wrap">
+                        <div class="wrap abs-wrap flex-box" ng-style="mapSearchStyles">
+                            <div class="input-group">
+                                <input type="text" ng-model="searchDevice.mark" name="mapSearchInput" class="form-control" placeholder="{{'mark' | chFilter}}"/>
+                                <span class="input-group-btn" id="searchRange"><button class="btn" ng-click="clearSearch()" type="button">{{"clear" | chFilter}}</button></span>
+                            </div>
+                            <div class="searchout open" id="searchList">
+                                <ul ng-hide="searchRangeDevices">
+                                    <li ng-repeat="device in searchOutDevice | filter: searchDevice | orderBy: 'mark'" ng-click="showDevice(device.id)" ng-class="{'active': activeDevice.indexOf(device.id) >= 0}">
+                                        <div class="table">
+                                            <div class="table-cell pic"><img ng-src="{{searchoutPinPic}}"/></div>
+                                            <div class="table-cell">
+                                                <div>{{'mark' | chFilter}}:  {{device.mark}}</div>
+                                                <div class="grey small">UUID: {{device.uuid}}</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li ng-repeat="device in searchRangeDevices | filter: searchDevice | orderBy: 'mark'" ng-click="showRangeDevice(device.id);" ng-class="{'active': activeDevice.indexOf(device.id) >= 0}">
+                                        <div class="table">
+                                            <div class="table-cell pic"><img ng-src="{{searchoutPinPic}}"/></div>
+                                            <div class="table-cell">
+                                                <div>{{'mark' | chFilter}}:  {{device.mark}}</div>
+                                                <div class="grey small">UUID: {{device.uuid}}</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="close"><i ng-click="closeSearchList()" class="fa fa-angle-double-up"></i></div>
+                        </div>
+                    </form>
+                </aside>
+                <div id="map" class="wrap-full"></div>
+            </div>
+
+        </div>
+        <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM&callback=initMap"></script>-->
+        <!--<script type="text/javascript" src="http://maps.google.cn/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM"></script>-->
+    </div>
+</div>
+

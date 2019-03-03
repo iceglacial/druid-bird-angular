@@ -1,0 +1,87 @@
+<article>
+    <div class="wrapper">
+        <section id="allDevice">
+            <div class="infoPanel flex-box">
+                <div class="info-panel-header">
+                    <div class="pull-left">
+                        <h5>{{"account" | chFilter}}:&nbsp;{{username}}</h5>
+                    </div>
+                    <div class="pull-right">
+                        <input type="number" class="input-default search" ng-change="filterDevice()" ng-model="searchDevice"
+                               placeholder="{{'mark' | chFilter}}">
+                    </div>
+                </div>
+                <!--<div class="info-panel-table-header">-->
+                    <!--<div class="myTable">-->
+                        <!--<div class="t-header t-row">-->
+                            <!--&lt;!&ndash;{{"device_no" | chFilter}}&ndash;&gt;-->
+                            <!--<div class="t-cell choice"></div>-->
+                            <!--<div class="t-cell sn">{{"mark" | chFilter}}</div>-->
+                            <!--<div class="t-cell uuid">UUID</div>-->
+                            <!--<div class="t-cell description">{{"description" |chFilter: "device_list"}}</div>-->
+                            <!--<div class="t-cell owner">{{"owner" |chFilter: "device_list"}}</div>-->
+                            <!--<div class="t-cell permission">{{"permission" |chFilter: "device_list"}}</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="info-panel-content" id="flexBoxBody">
+                    <div id="myGridTable" ui-grid="gridAddAuth" ui-grid-selection ui-grid-pagination ui-grid-pinning ui-grid-auto-resize class="grid" ng-style="{'height': gridHeight + 'px'}"></div>
+                    <div ng-include="'/discovery/grid_pagination.html'"></div>
+                    <!--<form role="form" name="allDeviceForm">-->
+                        <!--<div class="myTable">-->
+                            <!--<div class="t-content">-->
+                                <!--<div class="t-content-line t-row" ng-repeat="allDe in allDevice | filter: searchDevice">-->
+                                    <!--<div class="t-cell choice">-->
+                                        <!--<label for="choose[{{$index}}]" class="checkbox">-->
+                                            <!--<input type="checkbox" ng-model="allDe.choose"-->
+                                                   <!--ng-click="setChoosed('choose')" id="choose[{{$index}}]" name="choose"-->
+                                                   <!--hidden/>-->
+                                            <!--<i class="dd"-->
+                                               <!--ng-class="{'dd-checkbox-thin': !allDe.choose,'dd-checkbox-ok active': allDe.choose}"></i>-->
+                                        <!--</label>-->
+                                        <!--&lt;!&ndash;{{$index+1}}&ndash;&gt;-->
+                                    <!--</div>-->
+                                    <!--<div class="t-cell sn"><span class="word-keep">{{allDe.mark}}</span></div>-->
+                                    <!--<div class="t-cell uuid"><span class="word-keep">{{allDe.uuid}}</span></div>-->
+                                    <!--<div class="t-cell description"><span class="word-keep"-->
+                                                                          <!--title="{{allDe.description}}">{{allDe.description}}</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="t-cell owner"><span class="word-keep">{{allDe.owner | unitFilter:'owner'}}</span>-->
+                                    <!--</div>-->
+                                    <!--<div class="t-cell permission">-->
+                                        <!--<label for="addsetting_set[{{$index}}]" class="checkbox">-->
+                                            <!--<input type="checkbox" ng-model="allDe.setting_set"-->
+                                                   <!--ng-click="setChoosed('set')" id="addsetting_set[{{$index}}]"-->
+                                                   <!--name="addsetting_set[{{$index}}]" hidden/>-->
+                                            <!--<i class="dd"-->
+                                               <!--ng-class="{'dd-checkbox-thin': !allDe.setting_set,'dd-checkbox-ok active': allDe.setting_set}"></i>-->
+                                            <!--{{"auth_device_setting" | chFilter}}-->
+                                        <!--</label>-->
+                                        <!--<label for="addbiological_view[{{$index}}]" class="checkbox">-->
+                                            <!--<input type="checkbox" ng-model="allDe.biological_view"-->
+                                                   <!--ng-click="setChoosed('set')" id="addbiological_view[{{$index}}]"-->
+                                                   <!--name="addbiological_view[{{$index}}]" hidden/>-->
+                                            <!--<i class="dd"-->
+                                               <!--ng-class="{'dd-checkbox-thin': !allDe.biological_view,'dd-checkbox-ok active': allDe.biological_view}"></i>-->
+                                            <!--{{"auth_organism_info" | chFilter}}-->
+                                        <!--</label>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                </div>
+                <div class="info-panel-footer">
+                    <div class="pull-left">
+                        <a class="btn btn-default" href="javascript:history.go(-1)">{{"back" | chFilter}}</a>
+                    </div>
+                    <div class="pull-right">
+                        <span class="btn-left" ng-init="">{{"selected" | chFilter}}: {{chooseLength || userDeviceAuth.length || gridApi.selection.getSelectedRows().length || 0}}</span>
+                        <button class="btn-line active pull-right" ng-click="confirmAddDevice()">{{"add_confirm" | chFilter}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</article>

@@ -1,0 +1,37 @@
+<nav id="nav" ng-controller="nav.ctrl">
+    <div class="wrap">
+        <div class="panel-group scrollbar-macosx" data-jquery-scrollbar ng-model="panels.activePanel" role="tablist" aria-multiselectable="true" bs-collapse>
+            <div class="panel panel-default" ng-repeat="nav in navs">
+                <div class="panel-heading" role="tab" id="panel{{$index}}">
+                    <h4 class="panel-title">
+                        <a bs-collapse-toggle ui-sref="{{nav.router}}" ui-sref-active="active" ng-if="nav.subNav.length <= 0 && !nav.hidden">
+                            <div class="nav-body">
+                                <span class="img"><i class="{{nav.icon}}"></i></span>
+                                <span class="title">{{ nav.title | chFilter: 'nav' }} </span>
+                            </div>
+                        </a>
+                        <a bs-collapse-toggle ng-if="nav.subNav.length > 0 && !nav.hidden">
+                            <div class="nav-body">
+                                <span class="img"><i class="{{nav.icon}}"></i></span>
+                                <span class="title">{{ nav.title | chFilter: 'nav' }}</span>
+                                <i class="fa {{angle}} pull-right" aria-hidden="true" ng-show="nav.subNav.length > 0"></i>
+                            </div>
+                        </a>
+                    </h4>
+                </div>
+                <div class="panel-collapse" role="tabpanel" id="panelCollapse{{$index}}"  ng-class="{'in':isActive(nav.title)}" bs-collapse-target>
+                    <div class="panel-body">
+                        <ul>
+                            <li ng-repeat="sub in nav.subNav" ui-sref="{{sub.router}}" ui-sref-active="active" ng-if="!sub.hidden">
+                                <a><span class="list-desc">{{sub.title | chFilter: 'nav'}}</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="lang-wrap">-->
+            <!--<button class="lang-btn" ng-click="lang()">{{currentLang | chFilter: 'lang_turn'}}</button>-->
+        <!--</div>-->
+    </div>
+</nav>

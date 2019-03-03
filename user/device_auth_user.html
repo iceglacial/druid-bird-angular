@@ -1,0 +1,65 @@
+<article>
+    <div class="wrapper">
+        <section id="authDevice">
+            <div class="infoPanel flex-box">
+                    <div class="info-panel-header">
+                        <div class="pull-left">
+                            <h5>{{"account" | chFilter}}:&nbsp;{{username}}</h5>
+                            <h6 class="yellow">{{"device_number" | chFilter}}:&nbsp;{{dataLength || 0}}</h6>
+                        </div>
+                        <div class="pull-right">
+                            <button class="btn-line active pull-right" ng-click="addAuthDevice()">+&nbsp;{{"add_device" | chFilter}}</button>
+                        </div>
+                    </div>
+                    <!--<div class="info-panel-table-header">-->
+                        <!--<div class="myTable">-->
+                            <!--<div class="t-header t-row">-->
+                                <!--&lt;!&ndash;<div class="t-cell number">{{"device_no" | chFilter}}</div>&ndash;&gt;-->
+                                <!--<div class="t-cell sn">{{"mark" |chFilter}}</div>-->
+                                <!--<div class="t-cell uuid">UUID</div>-->
+                                <!--<div class="t-cell description">{{"description" |chFilter: "device_list"}}</div>-->
+                                <!--<div class="t-cell owner">{{"owner" |chFilter: "device_list"}}</div>-->
+                                <!--<div class="t-cell permission">{{"permission" |chFilter: "device_list"}}</div>-->
+                                <!--<div class="t-cell act"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="info-panel-content" id="flexBoxBody">
+                        <div id="myGridTable" ui-grid="gridUserAuth" ui-grid-selection ui-grid-pagination ui-grid-pinning ui-grid-auto-resize class="grid" ng-style="{'height': gridHeight + 'px'}"></div>
+                        <div ng-include="paginationPage"></div>
+                        <!--<form role="form" name="userAuthDeviceForm">-->
+                        <!--<div class="myTable">-->
+                            <!--<div class="t-content">-->
+                                <!--<div class="t-content-line t-row" ng-repeat="userDA in userDeviceAuth" ng-if="userDeviceAuth.length">-->
+                                    <!--&lt;!&ndash;<div class="t-cell number"><span class="word-keep">{{$index+1}}</span></div>&ndash;&gt;-->
+                                    <!--<div class="t-cell sn"><span class="word-keep">{{userDA.mark}}</span></div>-->
+                                    <!--<div class="t-cell uuid"><span class="word-keep">{{userDA.uuid}}</span></div>-->
+                                    <!--<div class="t-cell description"><span class="word-keep" title="{{userDA.description}}">{{userDA.description}}</span></div>-->
+                                    <!--<div class="t-cell owner"><span class="word-keep">{{userDA.owner | unitFilter:'owner'}}</span></div>-->
+                                    <!--<div class="t-cell permission">-->
+                                        <!--<label for="setting_set[{{$index}}]" class="checkbox">-->
+                                            <!--<input type="checkbox" ng-change="save(userDA)" ng-model="userDA.setting_set" id="setting_set[{{$index}}]" name="setting_set[{{$index}}]" hidden/>-->
+                                            <!--<i class="dd" ng-class="{'dd-checkbox-thin': !userDA.setting_set,'dd-checkbox-ok active': userDA.setting_set}"></i>-->
+                                            <!--{{"auth_device_setting" | chFilter}}-->
+                                        <!--</label>-->
+                                        <!--<label for="biological_view[{{$index}}]" class="checkbox">-->
+                                            <!--<input type="checkbox" ng-change="save(userDA)" ng-model="userDA.biological_view" id="biological_view[{{$index}}]" name="biological_view[{{$index}}]" hidden/>-->
+                                            <!--<i class="dd" ng-class="{'dd-checkbox-thin': !userDA.biological_view,'dd-checkbox-ok active': userDA.biological_view}"></i>-->
+                                            <!--{{"auth_organism_info" | chFilter}}-->
+                                        <!--</label>-->
+                                    <!--</div>-->
+                                    <!--<div class="t-cell act"><a ng-click="delete(userDA)" class="btn btn-dark del">{{"delete" | chFilter}}</a></div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--</form>-->
+                    </div>
+                    <div class="info-panel-footer">
+                        <div class="pull-left">
+                            <a class="btn btn-default" href="javascript:history.go(-1)">{{"back" | chFilter}}</a>
+                        </div>
+                    </div>
+            </div>
+        </section>
+    </div>
+</article>

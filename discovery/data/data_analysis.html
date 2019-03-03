@@ -1,0 +1,76 @@
+<article id="dataAnalysis">
+    <div class="wrapper no-pd scrollbar-macosx" data-jquery-scrollbar>
+        <div class="aside" id="dataAside">
+            <div class="wrap">
+                <!--<div class="hide-select"><a ng-click="toggleAside()"><i class="fa fa-angle-up"></i></a></div>-->
+                <div class="myTable" >
+                    <div class="t-cell">
+                        <h4>{{"data_contrastive_analysis" | chFilter}} </h4>
+                        <div class="floor">
+                            <div class="mg">
+                                <button class="txt-label head">{{"select_device" | chFilter}}</button>
+                                <button class="txt-label" ng-repeat="dev in anlyDevice" ng-click="delDevice($index)">{{dev.mark?dev.mark:dev.uuid}}<i class="fa fa-minus"></i></button>
+                                <button class="txt-label active" ng-click="addDevice()">+</button>
+                            </div>
+                            <!--<div class="plus" ng-click="addDevice('mark')"><a><i class="fa fa-plus"></i></a></div>-->
+                            <p class="note">{{"data_analysis_choose_note" | chFilter}}</p>
+                        </div>
+                        <div class="floor">
+                            <div class="mg">
+                                <button class="txt-label head">{{"add_data_type" | chFilter}}</button>
+                                <button class="txt-label" ng-repeat="dev in anlyDeviceKey" ng-click="delDeviceKey($index)" >{{dev | chFilter: 'chart'}}<i class="fa fa-minus"></i></button>
+                                <button class="txt-label active" ng-click="addDeviceKey()">+</button>
+                            </div>
+                            <!--<div class="plus" ng-click="addDevice('key')"><a><i class="fa fa-plus"></i></a></div>-->
+                        </div>
+                        <div class="floor">
+                            <h6>{{"date" | chFilter}}</h6>
+                            <label class="mg date" ng-show="!untillDate" ng-class="{'valid-error': !fromDate && untillDate}">
+                                <input id="chartBeginDate" type="text" class="btn date form-control" ng-model="fromDate" data-max-date="today" data-date-type="number" placeholder="{{'start_date' | chFilter}}" data-autoclose="1" bs-datepicker>
+                            </label>
+                            <label class="mg date" ng-show="untillDate" ng-class="{'valid-error': !fromDate && untillDate}">
+                                <input id="chartBeginDate2" type="text" class="btn date form-control" ng-model="fromDate" data-max-date="{{untillDate}}" data-date-type="number" placeholder="{{'start_date' | chFilter}}" data-autoclose="1" bs-datepicker>
+                            </label>
+                            <label class="mg date" ng-class="{'valid-error': fromDate && !untillDate}">
+                                <input id="chartEndDate" type="text" class="btn date form-control" ng-model="untillDate" data-min-date="{{fromDate}}" data-max-date="today" data-date-type="number" placeholder="{{'end_date' | chFilter}}" data-autoclose="1" bs-datepicker>
+                            </label>
+                            <a role="button" class="btn btn-line" ng-click="clearDate()" ng-if="fromDate || untillDate">{{"clear" | chFilter}}</a>
+                        </div>
+                        <!--<div class="btn-group select-footer">-->
+                        <!--<button class="btn btn-blue" ng-click="loadChart()">生成图表</button>-->
+                        <!--</div>-->
+                    </div>
+                    <div class=" t-cell sure">
+                        <div class="close" ng-click="toggleAside()">
+                            <!--<i class="fa fa-close"></i>-->
+                            <span class="closetxt">{{false | chFilter:'show'}}{{'filter_box' | chFilter}}</span>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-blue active" ng-click="loadChart()">{{'generating_chart' | chFilter}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="myTable">
+            <div class="ch-bd">
+                <div class="btn-group">
+                    <!--<a class="mg" src="#myChart"><input type="button" class="btn-line active" ng-click="toggleAside()" value="{{showAnly | chFilter:'show'}}{{'filter_box' | chFilter}}"  /></a>-->
+                    <label class="mg" ng-repeat="type in chartType"><input type="button" class="btn-line" ng-click="reloadSeries(type)" value="{{type | chFilter: 'chart_type'}}" ng-model="type" /></label>
+                </div>
+                <div class="show_filter">
+                    <a ng-click="toggleAside()">{{showAnly | chFilter:'show'}}{{'filter_box' | chFilter}}</a>
+                </div>
+            </div>
+            <div class="ch-bd" id="myChart">
+                <div class="chart">
+                    <highchart ng-if="chartConfig" id="deviceChart" config="chartConfig"></highchart>
+                </div>
+                <!--<div class="t-cell">-->
+                    <!--<div id="container"></div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,73 @@
+<article id="login" ng-controller="login.ctrl" ng-style="loginStyle">
+    <div class="wrapper flex-box">
+        <header class="login_top">
+        	<div class="login_top_control">
+                <a href="{{druidHomePage}}">
+                    <div class="flex-row">
+                        <div class="logo">
+                            <i class="dd dd-logo-druid"></i>
+                        </div>
+                        <div class="g-inline m-block pd-l">
+                            <div class="m-title ng-binding">德鲁伊科技</div>
+                            <div class="m-title-en ng-binding">Druid Technology</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            
+            <!--<p>德鲁伊微型动物追踪器——连接人与自然</p>-->
+        </header>
+
+        <section class="login login-content">
+            <div class="table">
+                <div class="table-cell vertical-middle">
+                    <div class="login_slogan">
+                        <p>连接&nbsp;生命与自然</p>
+                        <span>Connecting Life and Nature</span>
+                    </div>
+                    <div class="login-wrapper">
+                        <i class="dd dd-portrait login-icon"></i>
+                        <div class="">
+                            <form role="form" name="loginForm" novalidate>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <!--<img class="icon"  ng-src="{{iconName}}"/>-->
+                                        <i class="dd dd-user"></i>
+                                        <input class="form-control" placeholder="{{'username' | chFilter}}" id="myaccount" type="text"
+                                               ng-model="username" name="username" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <!--<img class="icon" ng-src="{{iconPass}}"/>-->
+                                        <i class="dd dd-password"></i>
+                                        <input class="form-control" placeholder="{{'password' | chFilter}}" id="mypassword" type="password"
+                                               ng-model="password" name="password" required/>
+                                    </div>
+                                    <div class="pass overhidden">
+                                        <input type="checkbox" id="rememberPassword" ng-model="remPass" name="rememberPassword"
+                                               hidden/>
+                                        <label for="rememberPassword" class="pull-right light">
+                                            <i class="dd" ng-class="{'dd-checkbox': !remPass,'dd-checkbox-ok active': remPass}"></i>
+                                            {{"remember_login_state" | chFilter}}
+                                        </label>
+                                    </div>
+                                    <div class="text-center"><input ui-sref="login" class="btn" id="loginBtn" ng-click="login()" type="submit" value="{{'login' | chFilter}}"></div>
+                                    <div class="text-center forget">{{'forget' | chFilter}}{{'password' | chFilter}}?&nbsp;<a class="find-pwd" ng-click="findPassword()">{{'retrieve_password' | chFilter}}</a></div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--<footer>-->
+        	<!--<div class="login_footer_control">-->
+                <!--<ul>-->
+                    <!--<li class="col-sm-8">{{"druid_copyright" | chFilter}}（www.druidtech.cn）</li>-->
+                    <!--<li class="col-sm-4 text-right">{{"phone_fax" | chFilter}}：+86 028-85929148</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</footer>-->
+    </div>
+</article>

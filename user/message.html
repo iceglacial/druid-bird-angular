@@ -1,0 +1,94 @@
+<div class="wrapper" ng-controller="message.ctrl">
+    <section id="message" class="mesg-cont">
+        <div class="infoPanel flex-box">
+            <div class="info-panel-header">
+                <div class="pull-left"><h5>{{"push_notification" | chFilter:'nav' }}</h5></div>
+                <div class="pull-right">
+                    <button class="btn btn-line" title="{{'mark_selected_msg_as_read' | chFilter: 'tips'}}" ng-click="setReaded()"><i class="fa fa-envelope-o" aria-hidden="true"></i></button>
+                    <button class="btn btn-line" title="{{'delete_selected_msg' | chFilter: 'tips'}}" ng-click="deleteMesg()"><i class="fa fa-trash-o"></i></button>
+                </div>
+            </div>
+            <div class="info-panel-table-header">
+                <div class="myTable">
+                    <div class="t-header t-row">
+                        <div class="t-cell middle check-wrap">
+                            <input type="checkbox" id="chooseAll" name="mesg{{$index}}" ng-model="chooseAll" ng-click="chooseAllMesg()" hidden />
+                            <label for="chooseAll">
+                                <i class="dd" ng-class="{'dd-checkbox-thin': !chooseAll,'dd-checkbox-ok active': chooseAll}"></i>
+                            </label>
+                        </div>
+                        <div class="t-cell full"></div>
+                        <div class="t-cell text-right"><small class="grey fs">{{accountLogin.profile.time_zone || 0 | chFilter:'timezone'}}</small></div>
+                    </div>
+                </div>
+            </div>
+            <div class="info-panel-content flex-box-body scrollbar-macosx" data-jquery-scrollbar>
+                <form role="form" name="messageForm">
+                    <div class="table">
+                        <div class="t-row-group">
+                            <div class="t-row" ng-repeat="mesg in message" ng-class="{'readed': mesg.readed_at}">
+                                <div class="t-cell middle check-wrap">
+                                    <input type="checkbox" id="mesg{{$index}}" name="mesg{{$index}}" ng-model="mesg.checked" hidden />
+                                    <label for="mesg{{$index}}">
+                                        <i class="dd" ng-class="{'dd-checkbox-thin': !mesg.checked,'dd-checkbox-ok active': mesg.checked}"></i>
+                                    </label>
+                                </div>
+
+                                <div class="t-cell type">
+                                    <a ng-click="setReaded($index)">
+                                        <div class="mesg-type">
+                                            <i class="dd type" ng-class="{'dd-device-circle': mesg.type == 2 || mesg.type == 4,'dd-user-circle': mesg.type == 1, 'dd-setting-circle': mesg.type == 0}"></i>
+                                            <i class="dd dd-warning-circle little" ng-class="{'danger': mesg.level == 2,'warn': mesg.level == 1, 'normal': mesg.level == 0}"></i>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!--<div role="table-cell" class="datetime text-right">-->
+                                <!--<div class="date">{{mesg.timestamp | unitFilter:'localdate'}}</div>-->
+                                <!--<div class="time">GMT+0800 (CST)</div>-->
+                                <!--</div>-->
+                                <div class="t-cell full">
+                                    <div>
+                                        <small class="grey">{{"src_name" | chFilter}}：{{mesg.src_name}}</small>
+                                        <small class="grey" ng-if="mesg.target_str && (mesg.type == 1)" >&nbsp;&nbsp;{{'username' | chFilter}}:&nbsp; {{mesg.target_str}}</small>
+                                        <small class="grey" ng-if="mesg.target_str && (mesg.type == 2)" >&nbsp;&nbsp;{{"mark" | chFilter}}:&nbsp; {{mesg.target_str}}</small>
+                                        <div class="pull-right">
+                                            <small class="grey">{{mesg.timestamp | unitFilter:'localdate'}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="mesg-body">
+                                        <a ng-click="check($index)">{{mesg.msg}}</a>
+                                        <div class="pull-right act-box">
+                                            <a ng-click="check($index)" class="act see-detail" ng-if="mesg.type != 0">【 {{"view_details" | chFilter}} 】</a>
+                                            <a class="read-state act" ng-if="!mesg.readed_at" ng-click="setReaded($index)" title="{{'unread' | chFilter: 'tips'}}"><img ng-src="/images/icon/icon-unread1712.png"/>  </a>
+                                            <a class="read-state act" ng-if="mesg.readed_at" title="{{'have_read' | chFilter: 'tips'}}"><img ng-src="/images/icon/icon-readed1714.png"/>  </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div role="table-cell" class="middle see">-->
+                                <!--<div class="">{{mesg.level | unitFilter: 'level'}}</div>-->
+                                <!--</div>-->
+                                <!--<div role="table-cell" class="middle see">-->
+                                <!--<div class="">{{mesg.type | unitFilter: 'type'}}</div>-->
+                                <!--</div>-->
+                                <!--<div role="table-cell" class="middle see">-->
+                                <!--<a class="blue" ng-click="check(mesg)" ng-if="mesg.type != 0">查看数据</a>-->
+                                <!--</div>-->
+                                <!--<div role="table-cell" class="middle del">-->
+                                <!--<a class="grey" ng-click="">删除</a>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="info-panel-footer">
+                <div ng-include="paginationPage"></div>
+            </div>
+        </div>
+    </section>
+</div>
+<!--<script>-->
+    <!--jQuery(document).ready(function(){-->
+        <!--jQuery('.scrollbar-macosx').scrollbar();-->
+    <!--});-->
+<!--</script>-->

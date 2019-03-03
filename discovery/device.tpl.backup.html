@@ -1,0 +1,28 @@
+<article id="curDBEdit" class="modal">
+    <form role="form" name="deviceEditForm" novalidate>
+        <div class="modal-content col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
+            <div class="modal-body">
+                <div class="body-top">
+                    <div class="icon device-head t-inline-one">{{curDevice.mark}}</div>
+                    <div class="title">
+                        <h3>{{curDevice.uuid}}</h3>
+                        <div class="light">更新时间: {{curDevice.updated_at | date: 'yyyy年MM月dd日 HH:mm:ss':'UTC'}}</div>
+                    </div>
+                </div>
+
+                <div class="body-container">
+                    <div class="form-group col-md-6" ng-repeat="(devKey, devValue) in currentDevice" ng-if="devKey | outFilter: 'deviceset'">
+                        <label for="edit{{devKey}}">{{devKey | chFilter: 'deviceSet'}}
+                            <!--<span class="danger">*</span>-->
+                        </label>
+                        <input type="text" class="form-control" name="n{{devKey}}" id="edit{{devKey}}" ng-model="devValue" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-cancle" ng-click="$hide()">取消</a><a class="btn btn-submit pull-right" ng-click="save($event);$hide()">提交</a>
+            </div>
+        </div>
+    </form>
+</article>

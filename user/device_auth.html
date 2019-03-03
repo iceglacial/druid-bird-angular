@@ -1,0 +1,53 @@
+<article ng-controller="companyUser.ctrl">
+    <div class="wrapper">
+        <!--<section id="authDevice" >-->
+            <!--<div class="infoPanel flex-box">-->
+                <!--<div class="info-panel-header">-->
+                    <!--<h5>{{"device_auth" | chFilter}}</h5>-->
+                <!--</div>-->
+                <!--<div class="info-panel-table-header">-->
+                    <!--<div class="myTable">-->
+                        <!--<div class="t-header t-row">-->
+                            <!--&lt;!&ndash;<div class="t-cell number">{{"device_no" | chFilter}}</div>&ndash;&gt;-->
+                            <!--<div class="t-cell username">{{"account" | chFilter}}</div>-->
+                            <!--<div class="t-cell auth_length">{{"device_number" | chFilter}}</div>-->
+                            <!--<div class="t-cell edit_set">{{"auth_device_setting" | chFilter}}</div>-->
+                            <!--<div class="t-cell view_bio">{{"auth_organism_info" | chFilter}}</div>-->
+                            <!--<div class="t-cell act"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="info-panel-content">-->
+                    <!--<form role="form" name="companyForm">-->
+                        <!--<div class="myTable">-->
+
+                            <!--<div class="t-content">-->
+                                <!--<div class="t-content-line t-row" ng-repeat="dAuth in deviceAuth">-->
+                                    <!--&lt;!&ndash;<div class="t-cell number">{{$index+1}}</div>&ndash;&gt;-->
+                                    <!--<div class="t-cell username">{{dAuth.username}}</div>-->
+                                    <!--<div class="t-cell auth_length">{{dAuth.auth_devices.length || 0}}</div>-->
+                                    <!--<div class="t-cell edit_set">{{setting_set[$index] || 0}}</div>-->
+                                    <!--<div class="t-cell view_bio">{{biological_view[$index]  || 0}}</div>-->
+                                    <!--<div class="t-cell act"><button class="btn-dark" ng-click="getUserDeviceAuth($index)">{{"auth_management" | chFilter}}</button></div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</section>-->
+        <div class="flex-box infoPanel">
+            <div class="flex-box-header info-panel-header">
+                <div class="pull-left">
+                    <h5>{{"user_auth" | chFilter}}</h5>
+                </div>
+                <div class="pull-right">
+                    <button ng-if="accountLogin.role == 'admin'" class="btn-line active" ng-click="addUser()">+&nbsp;{{"create_account" | chFilter}}</button>
+                </div>
+            </div>
+            <div class="flex-box-body" id="flexBoxBody">
+                <div class="wrap-full" ng-include="'/user/company-user.tpl.html'"></div>
+            </div>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,114 @@
+<article>
+    <div class="wrapper">
+        <!--个人资料-->
+        <div class="flex-row full">
+            <div class="flex-row-list pd-right">
+                <section class="infoPanel sm">
+                    <form name="editUserAuthForm">
+                        <div class="info-panel-header">权限</div>
+                        <div class="info-panel-content">
+                            <ul class="item-wrap">
+                                <li class="item">{{"data_export" | chFilter}} <div class="pull-right"> <input id="dataExport" ng-model="userAuth.export_auth" ng-change="updateUserAuth()" class="checkbox sr-only" type="checkbox" hidden/><label for="dataExport" class="mycheck"></label></div></li>
+                                <li class="item">{{"data_analysis" | chFilter}}<div class="pull-right"> <input id="dataAnalysis" ng-model="userAuth.analysis_auth" ng-change="updateUserAuth()" class="checkbox sr-only" type="checkbox" hidden/><label for="dataAnalysis" class="mycheck"></label></div></li>
+                                <li class="item">{{"env" | chFilter}}<div class="pull-right"> <input id="envData" ng-model="userAuth.env_auth" ng-change="updateUserAuth()" class="checkbox sr-only" type="checkbox" hidden/><label for="envData" class="mycheck"></label></div></li>
+                                <li class="item">{{"bhv" | chFilter}}<div class="pull-right"> <input id="bhvData" ng-model="userAuth.bhv_auth" ng-change="updateUserAuth()" class="checkbox sr-only" type="checkbox" hidden/><label for="bhvData" class="mycheck"></label></div></li>
+                            </ul>
+                            <div class="note-bar">
+                                <div class="">
+                                    <span class="check-title">{{"view" | chFilter}}</span>
+                                    <span class="check-title">{{"edit" | chFilter}}</span>
+                                </div>
+                            </div>
+                            <ul class="item-wrap">
+                                <li class="item">
+                                    {{"organism_info" | chFilter}}
+                                    <div class="pull-right">
+                                        <div class=""> <input id="envDataView" ng-model="userAuth.biological_auth.view" ng-change="updateUserAuth()" class="checkbox sr-only" type="checkbox" hidden/><label for="envDataView" class="mycheck"></label></div>
+                                        <div class=""> <input id="envDataEdit" ng-model="userAuth.biological_auth.edit" ng-change="updateUserAuth()" class="checkbox sr-only" type="checkbox" hidden/><label for="envDataEdit" class="mycheck"></label></div>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    {{"person_info" | chFilter}}
+                                    <div class="pull-right">
+                                        <div class=""> <input id="bhvDataView" ng-model="userAuth.user_auth.view" ng-change="updateUserAuth()" class="checkbox sr-only" type="checkbox" hidden/><label for="bhvDataView" class="mycheck"></label></div>
+                                        <div class=""> <input id="bhvDataEdit" ng-model="userAuth.user_auth.edit" ng-change="updateUserAuth()" class="checkbox sr-only" type="checkbox" hidden/><label for="bhvDataEdit" class="mycheck"></label></div>
+                                    </div>
+                                </li>
+                                <li class="item">
+                                    {{"device_parameter" | chFilter}}
+                                    <div class="pull-right">
+                                        <div class=""> <input id="deviceSettingView" ng-model="userAuth.setting_auth.view" ng-change="updateUserAuth()" class="checkbox sr-only" type="checkbox" hidden/><label for="deviceSettingView" class="mycheck"></label></div>
+                                        <div class=""> <input id="deviceSettingEdit" ng-model="userAuth.setting_auth.edit" ng-change="updateUserAuth()" class="checkbox sr-only" type="checkbox" hidden/><label for="deviceSettingEdit" class="mycheck"></label></div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!--<p class="word-keep">{{userAuth}}</p>-->
+                        </div>
+                    </form>
+                </section>
+            </div>
+            <div class="flex-row-body full-h">
+                <section class="infoPanel flex-box tab-menu">
+                    <div class="info-panel-header">
+                        <div ng-model="tabs.activeTab" bs-radio-group>
+                            <label class="tab-item" ng-repeat="tab in tabs">
+                                <span ng-bind-html="tab.display"></span>
+                                <input class="sr-only" name="{{ tab.title }}" value="{{ tab.title }}" ng-click="setCurMode(tab.title)" hidden id="n{{tab.title}}" type="radio">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="info-panel-content padding" ng-if="tabs.activeTab === 'user-device'">
+                        <div class="scrollbar-macosx" data-jquery-scrollbar>
+                            <ul class="array-show" ng-if="tabs.activeTab === 'user-device'">
+                                <li class="item col-lg-3 col-md-6 col-sm-12" ng-repeat="ud in userDevice">
+                                    <div class="item-body">
+                                        <a class="delete" ng-click="removeDevice(ud)"><i class="dd dd-delete"></i></a>
+                                        <div class="title">{{ud.mark}}</div>
+                                        <div class="small word-keep">UUID:{{ud.uuid}}</div>
+                                        <div class="small t-inline-one">{{'description' | chFilter}}:{{ud.description}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="info-panel-content padding" ng-if="tabs.activeTab === 'add-device'">
+                        <div class="flex-box full">
+                            <div class="padding state-box" ng-if="tabs.activeTab === 'add-device'">
+                                <span class="yellow has-btn">{{toAddDevice.length || 0}}/{{idleDevice.length || 0}} {{"chosen" | chFilter}}</span>
+                                <div class="pull-right">
+                                    <a role="button" class="btn btn-default" ng-click="addDeviceToUser()">{{'confirm' | chFilter}}</a>
+                                </div>
+                            </div>
+                            <div class="scrollbar-macosx" data-jquery-scrollbar>
+                                <ul class="array-show" ng-if="tabs.activeTab === 'add-device'">
+                                    <li class="item col-lg-3 col-md-6 col-sm-12" ng-repeat="ud in idleDevice">
+                                        <div class="item-body" ng-click="selectDevice(ud)" ng-class="{'active': toAddDevice.indexOf(ud.id) >= 0}">
+                                            <div class="title">{{ud.mark}}</div>
+                                            <div class="small word-keep">UUID:{{ud.uuid}}</div>
+                                            <div class="small t-inline-one">{{'description' | chFilter}}:{{ud.description}}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+                <!--<div class="flex-row-body companyuser" ng-if="accountLogin.role">-->
+                    <!--<div class="flex-box full infoPanel">-->
+                        <!--<div class="flex-box-header info-panel">-->
+                            <!--<div class="pull-left">-->
+                                <!--<h5>{{accountInfoTip | chFilter}}</h5>-->
+                            <!--</div>-->
+                            <!--<div class="pull-right">-->
+                                <!--<button ng-if="accountLogin.role == 'admin'" class="btn-line active" ng-click="addUser()">+&nbsp;{{createAccountTip | chFilter}}</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="flex-box-body" id="flexBoxBody">-->
+                            <!--<div class="wrap-full" ng-include="'/user/company-user.tpl.html'"></div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+</article>

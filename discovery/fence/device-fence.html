@@ -1,0 +1,113 @@
+<div class="wrapper no-pd">
+    <div ng-controller="deviceFence.ctrl" class="wrap-full">
+        <!-- Page Content -->
+        <div class="mapshow wrap-full" id="map-wrap">
+            <div class="wrap-full flex-row">
+                <aside id="deviceFence" class="">
+                    <form name="mapFenceForm" class="abs-wrap">
+                        <div class="wrap flex-box">
+                            <div class="fence-filter">
+                                <input type="text" class="rounded" ng-model="deivceFilter.mark" placeholder="{{'quick_search' | chFilter:'fence'}}"/>
+                            </div>
+                            <div class="fence-body white scrollbar-macosx" data-jquery-scrollbar>
+                                <ul>
+                                    <li ng-repeat="device in allDevices | filter: deivceFilter | orderBy: 'mark'" class="list" ng-class="{'active': device.id == curViewDevice.id}" ng-click="viewDevice(device)">
+                                        <div class="data-area">
+                                            <div class="title">{{'mark' | chFilter}}:&nbsp;{{device.mark}}<span ng-if="device.ditu_area" class="num-note pull-right">{{device.ditu_area.length || ""}}</span></div>
+                                            <div class="cont opacity50">{{device.uuid}}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </aside>
+                <div id="map" class="wrap-full"></div>
+                <aside id="mapFence" ng-if="underAreas && underAreas.length">
+                    <form name="mapFenceForm" class="abs-wrap">
+                        <div class="wrap flex-box">
+                            <div class="input-group fence-header">
+                                <div class="pull-left">
+                                    <span class="lead-line">{{"fence_list" | chFilter:'fence'}}（{{underAreas.length || 0}}）</span>
+                                </div>
+                            </div>
+                            <div class="fence-body white scrollbar-macosx" data-jquery-scrollbar>
+                                <ul>
+                                    <li class="chain">
+                                        <div class="area-panel" ng-model="panels.activePanel" aria-multiselectable="true" bs-collapse>
+                                            <div class="panel" ng-repeat="fence in underAreas">
+                                                <div class="panel-heading" role="tab">
+                                                    <h4 class="panel-title">
+                                                        <a bs-collapse-toggle ng-click="highLightFence(fence.id)" ng-class="{'active': activeFence == fence.id}">
+                                                            <div class="word-keep">{{ fence.area_name }}</div>
+                                                        </a>
+                                                    </h4>
+                                                </div>
+                                                <div class="panel-collapse" role="tabpanel" bs-collapse-target>
+                                                    <div class="panel-body">
+                                                        <ul>
+                                                            <li ng-if="fence.type == 'Polygon'">
+                                                                <div>{{"fence_range" | chFilter:'fence'}}：</div>
+                                                                <div class="light">
+                                                                    <div>
+                                                                        <p>{{"nw_corner" | chFilter:'fence'}}：</p>
+                                                                        <p>Lat:&nbsp;{{fence.polygon.points[0].lat}}</p>
+                                                                        <p>Lng:&nbsp;{{fence.polygon.points[0].lng}}</p>
+                                                                    </div>
+                                                                    <div class="mg-t">
+                                                                        <p>{{"se_corner" | chFilter:'fence'}}：</p>
+                                                                        <p>Lat:&nbsp;{{fence.polygon.points[3].lat}}</p>
+                                                                        <p>Lng:&nbsp;{{fence.polygon.points[3].lng}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li ng-if="fence.type == 'Round'">
+                                                                <div>{{"fence_range" | chFilter:'fence'}}：</div>
+                                                                <div class="light">
+                                                                    <div>
+                                                                        <p>{{"center" | chFilter:'fence'}}：</p>
+                                                                        <p>Lat:{{fence.point.lat}}</p>
+                                                                        <p>Lng:{{fence.point.lng}}</p>
+                                                                    </div>
+                                                                    <div class="mg-t">
+                                                                        <p>{{"radius" | chFilter:'fence'}}：</p>
+                                                                        <p>{{fence.distance}}&nbsp;m</p>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <li>
+                                                                <div>{{"fence_area" | chFilter:'fence'}}&nbsp;≈</div>
+                                                                <div class="light">&nbsp;{{fence.acreage}}&nbsp;m²</div>
+                                                            </li>
+                                                            <li>
+                                                                <div>{{"notification_type" | chFilter:'fence'}}：</div>
+                                                                <div class="light">{{fence.msg_type | chFilter: "fence"}}</div>
+                                                            </li>
+                                                            <li class="chain">
+                                                                <div>{{"device_count" | chFilter:'fence'}}：</div>
+                                                                <div class="light">{{fence.device_id.length}}</div>
+                                                            </li>
+                                                            <li class="chain">
+                                                                <a role="button" class="btn btn-act" ng-click="removeFence(fence)">{{"remove_device_from_fence" | chFilter:'fence'}}</a>
+                                                            </li>
+                                                            <li class="chain">
+                                                                <a role="button" class="btn btn-act" ng-click="goFence(fence.id)">{{"view_fence" | chFilter:'fence'}}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </aside>
+            </div>
+        </div>
+        <!--<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM&callback=initMap"></script>-->
+        <!--<script type="text/javascript" src="http://maps.google.cn/maps/api/js?key=AIzaSyCFTe1HMY5kFxMs3Vq8qhzdrtbgrDy-isM"></script>-->
+    </div>
+</div>
+

@@ -1,0 +1,129 @@
+<div class="mypagination" ng-init="goPage(1)">
+    <form role="form" name="pageForm">
+        <div class="pagebox">
+            <ul class="inline-row">
+                <!--上一页【button】-->
+                <li><button ng-click="previousPage()"  ng-disabled="currentPage<=1" class="btn pag_pre">{{"previous" | chFilter}}</button></li>
+                <!--第一页-->
+                <li ng-if="currentPage > 1"><button class="btn" ng-click="goPage(1)">1</button></li>
+                <!--上一页-->
+                <li ng-if="currentPage>2"><button ng-click="previousPage()" class="btn">{{currentPage-1}}</button></li>
+                <!--当前页-->
+                <li><button class="active btn">{{currentPage}}</button></li>
+                <!--下一页-->
+                <li ng-if="(totalPage > 1) && ((currentPage+1) < totalPage)"><button ng-click="nextPage()" ng-disabled="(currentPage+1) > totalPage" class="btn" >{{currentPage+1}}</button></li>
+                <!--下2页-->
+                <li ng-if="(totalPage > 1) && ((currentPage+2) < totalPage)"><button ng-click="goPage(currentPage+2)" ng-disabled="(currentPage+2) > totalPage" class="btn" >{{currentPage+2}}</button></li>
+                <!--第四頁-->
+                <li ng-if="(currentPage < 3) && ((currentPage+3) < totalPage)"><button ng-click="goPage(currentPage+3)" ng-disabled="(currentPage+1) > totalPage" class="btn" >{{currentPage+3}}</button></li>
+                <!--第五页-->
+                <li ng-if="(currentPage < 2) && ((currentPage+4) < totalPage)"><button ng-click="goPage(currentPage+4)" ng-disabled="(currentPage+2) > totalPage" class="btn" >{{currentPage+4}}</button></li>
+                <li ng-if="(currentPage+2) < totalPage"><span>...</span></li>
+                <!--最后一页-->
+                <li ng-if="currentPage<totalPage && totalPage > 1"><button class="btn" ng-click="goPage(totalPage)">{{totalPage}}</button></li>
+                <!--下一页【button】-->
+                <li><button ng-click="nextPage()" class="btn pag_pre" ng-disabled="(currentPage+1) > totalPage" >{{"next" | chFilter}}</button></li>
+                <!--指定页【button组合】-->
+                <li>
+                    <div class="input-group pagego">
+                        <input type="number" class="form-control" ng-model="targetPage" name="targetPage" min="1" max="{{totalPage}}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" ng-disabled="pageForm.targetPage.$invalid || targetPage < 1 || targetPage==currentPage" ng-click="goPage(pageForm.targetPage.$modelValue)">Go</button>
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="pageshow">
+            <div class="pull-right">
+                <ul class="inline-row">
+                    <li><span class="total-right" >{{dataLength || 0}}{{"data_length" | chFilter}}</span></li>
+                    <li>
+                        <button type="button" class="btn btn-line pageshow" trigger="click" ng-change="setPagesize(pageLimit)" name="selectPagesize" placeholder="{{'choose_please' | chFilter}}" ng-model="pageLimit" data-placement="top-right" data-html="1" bs-options="o for o in paginationPageSizes" bs-select>
+                            Action <span class="caret"></span>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    <!--<div class="myTable no-bd">-->
+        <!--<form role="form" name="pageForm">-->
+        <!--<div class="t-header t-row">-->
+            <!--&lt;!&ndash;上一页【button】&ndash;&gt;-->
+            <!--<div class="t-cell btn-page">-->
+                <!--<button ng-click="previousPage()"  ng-disabled="currentPage<=1" class="btn pag_pre">{{"previous" | chFilter}}</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;第一页&ndash;&gt;-->
+            <!--<div class="t-cell" ng-if="currentPage > 1">-->
+                <!--<button class="btn" ng-click="goPage(1)">1</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<div class="t-cell more" ng-if="currentPage > 3">&ndash;&gt;-->
+                <!--&lt;!&ndash;<span>...</span>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;上上一页&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="t-cell" ng-if="currentPage > 3">&ndash;&gt;-->
+                <!--&lt;!&ndash;<button ng-click="goPage(currentPage-2)" class="btn">{{currentPage-2}}</button>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;上一页&ndash;&gt;-->
+            <!--<div class="t-cell" ng-if="currentPage>2">-->
+                <!--<button ng-click="previousPage()" class="btn">{{currentPage-1}}</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;当前页&ndash;&gt;-->
+            <!--<div class="t-cell">-->
+                <!--<button class="active btn">{{currentPage}}</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;下一页&ndash;&gt;-->
+            <!--<div class="t-cell" ng-if="(totalPage > 1) && ((currentPage+1) < totalPage)">-->
+                <!--<button ng-click="nextPage()" ng-disabled="(currentPage+1) > totalPage" class="btn" >{{currentPage+1}}</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;下下一页&ndash;&gt;-->
+            <!--<div class="t-cell" ng-if="(totalPage > 1) && ((currentPage+2) < totalPage)">-->
+                <!--<button ng-click="goPage(currentPage+2)" ng-disabled="(currentPage+2) > totalPage" class="btn" >{{currentPage+2}}</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;第四页&ndash;&gt;-->
+            <!--<div class="t-cell" ng-if="(currentPage < 3) && ((currentPage+3) < totalPage)">-->
+                <!--<button ng-click="goPage(currentPage+3)" ng-disabled="(currentPage+1) > totalPage" class="btn" >{{currentPage+3}}</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;第五页&ndash;&gt;-->
+            <!--<div class="t-cell" ng-if="(currentPage < 2) && ((currentPage+4) < totalPage)">-->
+                <!--<button ng-click="goPage(currentPage+4)" ng-disabled="(currentPage+2) > totalPage" class="btn" >{{currentPage+4}}</button>-->
+            <!--</div>-->
+            <!--<div class="t-cell more" ng-if="(currentPage+2) < totalPage">-->
+                <!--<span>...</span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;最后一页&ndash;&gt;-->
+            <!--<div class="t-cell" ng-if="currentPage<totalPage && totalPage > 1">-->
+                <!--<button class="btn" ng-click="goPage(totalPage)">{{totalPage}}</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;下一页【button】&ndash;&gt;-->
+            <!--<div class="t-cell btn-page">-->
+                <!--<button ng-click="nextPage()" class="btn pag_pre" ng-disabled="(currentPage+1) > totalPage" >{{"next" | chFilter}}</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;指定页【button组合】&ndash;&gt;-->
+            <!--<div class="t-cell  btn-group">-->
+                <!--<div class="input-group">-->
+                    <!--<input type="number" class="form-control" ng-model="targetPage" name="targetPage" min="1" max="{{totalPage}}">-->
+                    <!--<span class="input-group-btn">-->
+                        <!--<button class="btn btn-default" type="button" ng-disabled="pageForm.targetPage.$invalid || targetPage < 1 || targetPage==currentPage" ng-click="goPage(pageForm.targetPage.$modelValue)">Go</button>-->
+                    <!--</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="t-cell empty">-->
+                <!--<p></p>-->
+            <!--</div>-->
+            <!--<div class="t-cell">-->
+                <!--<label class="total-right pull-right" >{{dataLength || 0}}{{"data_length" | chFilter}}</label>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;每页显示条数&ndash;&gt;-->
+            <!--<div class="t-cell btn-page">-->
+                <!--<label class="total pull-right">-->
+                    <!--<button type="button" class="btn btn-default pageshow" ng-change="setPagesize(pageLimit)" name="selectPagesize" placeholder="{{'choose_please' | chFilter}}" ng-model="pageLimit" data-placement="top-right" data-html="1" bs-options="o for o in paginationPageSizes" bs-select>-->
+                        <!--Action <span class="caret"></span>-->
+                    <!--</button>-->
+                <!--</label>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--</form>-->
+    <!--</div>-->
+    </form>
+</div>

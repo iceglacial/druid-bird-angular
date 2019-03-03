@@ -1,0 +1,12 @@
+<article ng-controller="gps.ctrl">
+    <div class="wrapper">
+        <div class="flex-box full">
+            <div class="flex-box-header no-pd-top" ng-if="(state == 'search.gps')">
+                <div class="search-top"><p ng-bind-html="searchTips"></p></div>
+            </div>
+            <div class="flex-box-body">
+                <div ng-include="gpsPage" class="wrap-full" ng-controller="gpsGrid.ctrl"></div>
+            </div>
+        </div>
+    </div>
+</article>

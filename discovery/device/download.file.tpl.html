@@ -1,0 +1,52 @@
+<div class="modal" id="myModal">
+    <form name="myPasswodForm" novalidate>
+        <div class="modal-content small">
+            <div class="close" ng-click="$hide()" aria-label="Close"><i class="dd dd-close-thin"></i></div>
+            <div class="modal-header">
+                <h5>{{"export" | chFilter}}</h5>
+            </div>
+            <div class="modal-body has-select">
+                <div class="wrap">
+                    <form>
+                        <div class="form-group is-select">
+                            <label class="input-label">{{'choose_type' | chFilter}}</label>
+                            <button type="button" class="form-control btn select" ng-change="checkFileType(downloadFile.type)" name="exportType" ng-model="downloadFile.type" data-placement="bottom" data-html="1" data-toggle="true" placeholder="{{'choose_please' | chFilter}}" bs-options="type  | chFilter for type in downloadFileType" bs-select>
+                                Action <span class="caret"></span>
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label class="input-label">{{'range_date' | chFilter}}</label>
+                            <!--时间范围-->
+                            <div class="form-inline range-time">
+                                <label for="startTime" ng-if="!downloadFile.end"><input type="text" id="startTime" class="form-control" ng-model="downloadFile.start" data-max-date="today" placeholder="" data-date-format="yyyy-MM-dd" data-date-type="number" data-autoclose="1" bs-datepicker></label>
+                                <label for="reStartTime" ng-if="downloadFile.end"><input type="text" id="reStartTime" class="form-control" ng-model="downloadFile.start" data-max-date="{{downloadFile.end}}" placeholder="" data-date-format="yyyy-MM-dd" data-date-type="number" data-autoclose="1" bs-datepicker></label>
+                                <!--endtime-->
+                                <label for="endTime" ><input type="text" id="endTime" class="form-control" ng-model="downloadFile.end" data-min-date="{{downloadFile.start}}" data-max-date="today" placeholder="" data-date-format="yyyy-MM-dd" data-date-type="number" data-autoclose="1" data-placement="bottom" bs-datepicker></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="input-label">{{'export_selected_file_to' | chFilter}}:</label>
+                            <div>
+                                <label for="singleFile"  ng-class="{'opacity50': downloadFile.type === 'kml'}">
+                                    <input type="radio" id="singleFile" ng-value="0" ng-disabled="downloadFile.type === 'kml'" ng-model="downloadFile.multiple" hidden/>
+                                    <i class="dd" ng-class="{'dd-checkbox-thin': downloadFile.multiple !== 0,'dd-checkbox-ok active': downloadFile.multiple === 0}"></i>
+                                    {{'single_file' | chFilter}}
+                                </label>
+                            </div>
+                            <div>
+                                <label for="multiple">
+                                    <input type="radio" id="multiple" ng-value="1" ng-disabled="downloadFile.type === 'kml'" ng-model="downloadFile.multiple" hidden/>
+                                    <i class="dd" ng-class="{'dd-checkbox-thin': downloadFile.multiple !== 1,'dd-checkbox-ok active': downloadFile.multiple === 1}"></i>
+                                    {{'multiple_file_base_on_device' | chFilter}}
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-line btn-block active" ng-click="save()&&$hide()">{{"confirm" | chFilter}}</button>
+            </div>
+        </div>
+    </form>
+</div>

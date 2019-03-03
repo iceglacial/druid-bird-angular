@@ -1,0 +1,72 @@
+<article ng-controller="companyPay.ctrl">
+    <div class="wrapper">
+        <div class="infoPanel flex-box full pay-list">
+            <div class="flex-box-header bill-header info-panel-header">
+                <div class="flex-row center-h">
+                    <div class="flex-row-list icon">
+                        <img src="/images/default/bill_6666.png" />
+                    </div>
+                    <div class="flex-row-list">
+                        <h3 class="title"><span ng-class="{'error': companyBill.Money <= 0}">{{companyBill.Money | currency: "¥": 2}}</span> <span class="small">/ {{'balance' | chFilter}}</span></h3>
+                        <div class="small">{{'deduction_rule' | chFilter}}：{{companyBill.RuleType + "," + companyBill.RuleRule + "," + companyBill.RuleMoney | chFilter: 'pay_rule'}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex-box-header bill-header">
+                <button type="button" class="form-control btn select" name="billType" ng-model="activeType" data-placement="bottom" placeholder="" data-html="1" data-toggle="true" bs-options="type.name | chFilter for type in billType" bs-select>
+                    Action <span class="dd dd-angle-down" data-icon="dd dd-angle-down"></span>
+                </button>
+                <!--<button type="button" ng-if="activeType.value === 0" class="form-control btn select" name="billMonth" ng-model="activeMonth" data-placement="bottom" placeholder="" data-html="1" data-toggle="true" bs-options="month | unitFilter: 'month' for month in dateRange" bs-select>-->
+                    <!--{{icon}}Action <span class="caret"></span>-->
+                <!--</button>-->
+            </div>
+            <div class="flex-box-body info-panel-content scrollbar-macosx" data-jquery-scrollbar>
+                <div class="table">
+                    <div class="t-row-group" ng-if="activeType.value === 1">
+                        <!--<div class="t-row note">-->
+                            <!--<div class="t-cell">{{companyMonthBill[0].Date + '-01T00:00:00.00Z' | date: 'yyyy'}}</div>-->
+                            <!--<div class="t-cell"></div>-->
+                            <!--<div class="t-cell"></div>-->
+                        <!--</div>-->
+                        <p ng-if="!companyMonthBill.length" class="text-center opacity50">空空如也~</p>
+                        <div class="t-row" ng-repeat="bill in companyMonthBill" ng-class="{'note': bill.divisionYear}">
+                            <div class="t-cell" ng-class="{'date': !bill.divisionYear}">
+                                <label ng-if="bill.divisionYear">{{bill.divisionYear}}</label>
+                                <div class="title" ng-if="!bill.divisionYear">{{bill.Date + '-01T00:00:00.00Z' | date: 'MMM'}}</div>
+                                <!--<div>02.04-02.25</div>-->
+                            </div>
+                            <div class="t-cell detail">
+                                <div class="title"  ng-if="!bill.divisionYear">{{companyBill.CompanyName}} - {{companyBill.PlatformType | chFilter: 'platform_type'}}</div>
+                                <div  ng-if="!bill.divisionYear">{{'expense' | chFilter}} <span class="money">{{bill.Money || 0 | currency: "¥": 2}}</span></div>
+                            </div>
+                            <div class="t-cell act">
+                                <a ui-sref="company_bill.month_device_pay({'month': bill.Date})"  ng-if="!bill.divisionYear">{{'device_expense_detail' | chFilter}}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="t-row-group" ng-if="activeType.value === 0">
+                        <p ng-if="!companyPayList.length" class="text-center opacity50">空空如也~</p>
+                        <div class="t-row" ng-repeat="pay in companyPayList">
+                            <div class="t-cell date">
+                                <div class="title"><span class="small">{{'recharge' | chFilter}}</span></div>
+                            </div>
+                            <div class="t-cell detail">
+                                <div class="title">{{companyBill.CompanyName}} - {{companyBill.PlatformType | chFilter: 'platform_type'}}</div>
+                                <div>{{'sum' | chFilter}} <span class="money">{{pay.Money | currency: "¥": 2}}</span></div>
+                            </div>
+                            <div class="t-cell act">
+                                <span class="opacity50">{{pay.Timestamp | date: 'MM-dd'}}</span>
+                            </div>
+                        </div>
+                        <!--<p class="word-keep">{{deviceDetailBill}}</p>-->
+                        <!--<p class="word-keep">companyPayList:{{companyPayList}}</p>-->
+                        <!--<p class="word-keep">companyMonthBill:{{companyMonthBill}}</p>-->
+                    </div>
+                </div>
+            </div>
+            <!--<div class="flex-box-footer info-panel-footer">-->
+                <!--footer-->
+            <!--</div>-->
+        </div>
+
+</article>
